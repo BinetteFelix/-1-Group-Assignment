@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class Collectible : MonoBehaviour
-{
+{/*
 
     [SerializeField] private int value;
     [SerializeField] private GameObject prefab;
@@ -28,10 +28,11 @@ public class Collectible : MonoBehaviour
             //player = other.GetComponent<player>();
             //if (player != null)
             //{
+                  Inventory.
             //    player.AddScore(value);
             //}
             // Destroy the collectible object
             prefab.SetActive(false);
         }
-    }
+    }*/
 }
