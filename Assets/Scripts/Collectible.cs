@@ -2,15 +2,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class Collectible : MonoBehaviour
-{/*
+{
 
-    [SerializeField] private int value;
+    [SerializeField] public int value;
+    public int Value => value;
     [SerializeField] private GameObject prefab;
-    //[SerializeField] private GameObject player;
+    [SerializeField] private Rigidbody rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        prefab = prefab.GetComponent<GameObject>();
+
     }
 
     // Update is called once per frame
@@ -21,18 +22,24 @@ public class Collectible : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        // Handle trigger enter logic
-        if(other.CompareTag("Player"))
+        if(!other.CompareTag("Player"))
         {
-            // Add value to player's score or inventory
-            //player = other.GetComponent<player>();
-            //if (player != null)
-            //{
-                  Inventory.
-            //    player.AddScore(value);
-            //}
-            // Destroy the collectible object
-            prefab.SetActive(false);
+            return;
         }
-    }*/
+        // Handle trigger enter logic
+        else if (other.CompareTag("Player"))
+        {
+            if(prefab.name.Contains("HeartGem"))
+            {
+                //health += 1;
+                Destroy(prefab);
+            }
+            else
+            {
+                prefab.SetActive(false);
+                Inventory.Instance.AddCollectible(this);
+            }
+            
+        }
+    }
 }
