@@ -6,14 +6,16 @@ using UnityEngine.UI;
 public class PauseUI : MonoBehaviour
 {
     public GameObject pausePanel;
-    private Button resumeButton;
+    [SerializeField] private Button resumeButton;
+    [SerializeField] private Button mainmenuButton;
 
 
-    private void Awake()
-    {
-        resumeButton = GameObject.Find("ResumeButton").GetComponent<Button>();
+    //public void Awake()
+    //{
+    //    resumeButton = GameObject.Find("ResumeButton").GetComponent<Button>();
 
-    }
+    //}
+
 
     private void Update()
     {
@@ -23,21 +25,33 @@ public class PauseUI : MonoBehaviour
             Time.timeScale = 0;
 
         }
+
+        ResumeButton();
+
+
     }
+
+
 
     public void ResumeButton()
     {
+        Debug.Log("1");
         resumeButton.onClick.AddListener(() =>
         {
+            Debug.Log("2");
             pausePanel.SetActive(false);
-            Time.timeScale = 0;
+            Time.timeScale = 1;
         });
+    }
+
+    public void RestartButton()
+    {
+
     }
 
     public void MainMenuButton()
     {
         //UnityEngine.SceneManagement.SceneManager.LoadScene("");
     }
-
 
 }
