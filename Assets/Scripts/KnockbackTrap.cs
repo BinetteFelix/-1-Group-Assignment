@@ -2,9 +2,16 @@ using UnityEngine;
 
 public class KnockbackTrap : MonoBehaviour
 {
+    public enum KnockbackDirectionMode
+    {
+        Radial, // from trap center to target
+        Fixed   // always along the trap's own forward axis
+    }
+
     [Header("Knockback Settings")]
+    public KnockbackDirectionMode directionMode = KnockbackDirectionMode.Fixed;
     public float knockbackForce = 10f;
-    public float upwardBoost = 2f; // Launch with small arc
+    public float upwardBoost = 2f;
     public ForceMode forceMode = ForceMode.Impulse;
     public float knockbackLockoutDuration = 0.25f;
 
@@ -13,23 +20,35 @@ public class KnockbackTrap : MonoBehaviour
         Rigidbody targetRb = other.GetComponent<Rigidbody>();
         if (targetRb == null) return;
 
-        // Flatten to horizontal plane so side hits knock sideways, not up
-        Vector3 diff = other.transform.position - transform.position;
-        diff.y = 0f;
+        Vector3 direction;
 
-        if (diff.sqrMagnitude < 0.0001f)
-            diff = -transform.forward; // fallback if positions overlap
+        if (directionMode == KnockbackDirectionMode.Fixed)
+        {
+            direction = transform.forward; // orient this in the Inspector to point away from the wall
+        }
+        else
+        {
+            Vector3 diff = other.transform.position - transform.position;
+            diff.y = 0f;
+            direction = diff.sqrMagnitude > 0.0001f ? diff.normalized : -transform.forward;
+        }
 
-        Vector3 direction = diff.normalized + Vector3.up * (upwardBoost / knockbackForce);
-        direction = direction.normalized;
+        direction = (direction + Vector3.up * (upwardBoost / knockbackForce)).normalized;
 
-        // Zero existing velocity so knockback feels consistent every time
         targetRb.linearVelocity = Vector3.zero;
         targetRb.AddForce(direction * knockbackForce, forceMode);
 
-        // Tell the movement script to back off for a moment
         var movement = other.GetComponent<TemporaryMovement>();
         if (movement != null)
             movement.ApplyKnockbackLock(knockbackLockoutDuration);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (directionMode == KnockbackDirectionMode.Fixed)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(transform.position, transform.forward * 2f);
+        }
     }
 }
