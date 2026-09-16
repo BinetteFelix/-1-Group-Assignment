@@ -1,13 +1,19 @@
-using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
+    #region COMPONENTS
     [SerializeField] private PlayerData Data;
+
+    private float moveSpeed = 5;
+    [SerializeField] Transform orientation;
     // [SerializeField] private HealthManager Health;
     private Rigidbody _rb;
+    #endregion
 
     #region INPUT PARAMETERS
     public Vector2 _moveInput;
@@ -38,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     // Wall Jumping
     private float _wallJumpStartTime;
     private int _lastWallJumpDir;
+    CursorLockMode m_LockMode;
     #endregion
 
     #region CHECK PARAMETERS
@@ -56,6 +63,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        m_LockMode = CursorLockMode.Locked;
+        Cursor.lockState = m_LockMode;
         moveAction.Enable();
         jumpAction.Enable();
         _rb = GetComponent<Rigidbody>();
@@ -201,8 +210,10 @@ public class PlayerMovement : MonoBehaviour
         if (IsWallJumping)
             Run(Data.wallJumpRunlerp);
         else
-            Run(3);
-
+        {
+            Run(1);
+            SpeedControl();
+        }
         if (IsSliding)
         {
             Slide();
@@ -232,37 +243,25 @@ public class PlayerMovement : MonoBehaviour
     #region RUN METHODS
     private void Run(float lerpAmount)
     {
-        float targetSpeed = _moveInput.y * Data.runMaxSpeed;
-        targetSpeed = Mathf.Lerp(_rb.linearVelocity.z, targetSpeed, lerpAmount);
+        Vector3 moveDirection = orientation.forward * moveAction.ReadValue<Vector2>().y + orientation.right * moveAction.ReadValue<Vector2>().x;
 
-        #region Calculate AccelRate
-        float accelRate;
+        
 
-        if (LastOnGroundTime > 0)
-            accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? Data.runAccelAmount : Data.runDeccelAmount;
-        else
-            accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? Data.runAccelAmount * Data.accelInAir : Data.runDeccelAmount * Data.deccelInAir;
-        #endregion
+        _rb.AddForce(moveDirection.normalized * Data.runMaxSpeed * 10f, ForceMode.Force);
 
-        #region Add Bonus Jump Apex Acceleration
-        if ((IsJumping || IsWallJumping || _isJumpFalling) && Mathf.Abs(_rb.linearVelocity.y) < Data.jumpHangTimeThreshold)
+        //_rb.MovePosition(transform.position + ((transform.position + new Vector3(_moveInput.x, 0, _moveInput.y)) - transform.position) * _moveInput.magnitude * accelRate * Time.deltaTime);
+        
+    }
+    private void SpeedControl()
+    {
+
+        Vector3 flatVelocity = new Vector3(_rb.linearVelocity.x, 0, _rb.linearVelocity.z);
+
+        if(flatVelocity.magnitude > Data.runMaxSpeed)
         {
-            accelRate *= Data.jumpHangAccelerationMult;
-            targetSpeed *= Data.jumpHangMaxSpeedMult;
+            Vector3 limitedVelocity = flatVelocity.normalized * Data.runMaxSpeed;
+            _rb.linearVelocity = new Vector3(limitedVelocity.x, _rb.linearVelocity.y, limitedVelocity.z);
         }
-        #endregion
-
-        #region Conserve Momentum
-        if (Data.doConserveMomentum && Mathf.Abs(_rb.linearVelocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(_rb.linearVelocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && LastOnGroundTime < 0)
-        {
-            accelRate = 0;
-        }
-        #endregion
-
-        float speedDif = targetSpeed - _rb.linearVelocity.x;
-        float movement = speedDif * accelRate;
-
-        _rb.AddForce(movement * Vector3.right * 100, ForceMode.Force);
     }
     #endregion
 
@@ -365,6 +364,12 @@ public class PlayerMovement : MonoBehaviour
         {
             LastOnGroundTime = 0.1f;
         }
+        else if (obj != null && obj.layer == 7)
+        {
+            LastOnWallTime = 0.1f;
+        }
+
+        
     }
     #endregion
 }
