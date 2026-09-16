@@ -31,7 +31,8 @@ public class Collectible : MonoBehaviour
         {
             if(prefab.name.Contains("HeartGem"))
             {
-                //health += 1;
+                //health += 1; 
+
                 Destroy(prefab);
             }
             else
