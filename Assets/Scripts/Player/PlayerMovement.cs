@@ -9,8 +9,6 @@ public class PlayerMovement : MonoBehaviour
     // [SerializeField] private HealthManager Health;
     private Rigidbody _rb;
 
-    Collider[] walls;
-
     #region INPUT PARAMETERS
     public Vector2 _moveInput;
     public bool _jumpInputDown;
@@ -44,11 +42,6 @@ public class PlayerMovement : MonoBehaviour
 
     #region CHECK PARAMETERS
     [Header("Checks")]
-    [SerializeField] private Transform _groundCheckPoint;
-    [SerializeField] private Vector3 _groundCheckSize = new Vector3(0.49f, 0.03f);
-    [Space(5)]
-    [SerializeField] private Transform _rightWallCheckPoint;
-    [SerializeField] private Transform _leftWallCheckPoint;
     [SerializeField] private Vector3 _wallCheckSize = new Vector3(0.5f, 1f);
     #endregion
 
@@ -70,7 +63,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        
+        Debug.Log(CanJump());
+
+        //Debug.Log(LastOnWallLeftTime);
+
         #region TIMERS
         LastOnGroundTime -= Time.deltaTime;
         LastOnWallTime -= Time.deltaTime;
@@ -97,27 +93,14 @@ public class PlayerMovement : MonoBehaviour
         #region COLLISION CHECKS
         if (!IsJumping)
         {
-            // Ground Check
-            if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer))
-            {
-                if (LastOnGroundTime < 0.1f && _isJumpFalling)
-                {
-
-                }
-
-                LastOnGroundTime = Data.coyoteTime;
-            }
 
             // Right Wall Check
-            GameObject wallobject = GameObject.FindGameObjectWithTag("Wall");
-
-
-            if (Physics.OverlapBoxNonAlloc(_rightWallCheckPoint.position, _wallCheckSize / 2, walls, Quaternion.identity) > 0 && !IsWallJumping)
+           /* if (Physics.OverlapBoxNonAlloc(_rightWallCheckPoint.position, _wallCheckSize / 2, walls, Quaternion.identity) > 0 && !IsWallJumping)
                 LastOnWallRightTime = Data.coyoteTime;
 
             // Left Wall Check
             if (Physics.OverlapBoxNonAlloc(_leftWallCheckPoint.position, _wallCheckSize / 2, walls, Quaternion.identity) > 0 && !IsWallJumping)
-                LastOnWallLeftTime = Data.coyoteTime;
+                LastOnWallLeftTime = Data.coyoteTime;*/
 
             LastOnWallTime = Mathf.Max(LastOnWallLeftTime, LastOnWallRightTime);
         }
@@ -181,7 +164,6 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region GRAVITY
-        /*
         if (IsSliding)
         {
             if ((WallSlideTime < 0 && LastOnWallLeftTime > 0 && _moveInput.x < 0) || (WallSlideTime < 0 && LastOnWallRightTime > 0 && _moveInput.x > 0))
@@ -212,7 +194,6 @@ public class PlayerMovement : MonoBehaviour
         {
             SetGravityScale(Data.gravityScale);
         }
-        */
         #endregion*/
     }
     private void FixedUpdate()
@@ -220,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
         if (IsWallJumping)
             Run(Data.wallJumpRunlerp);
         else
-            Run(1);
+            Run(3);
 
         if (IsSliding)
         {
@@ -228,6 +209,7 @@ public class PlayerMovement : MonoBehaviour
             WallSlideTime -= Time.deltaTime;
         }
     }
+
     #region INPUT CALLBACKS
     public void OnJumpInput()
     {
@@ -243,7 +225,7 @@ public class PlayerMovement : MonoBehaviour
     #region GENERAL METHODS
     public void SetGravityScale(float scale)
     {
-        //_rb.gravityScale = scale;
+        _rb.AddForce(Vector3.down * scale);
     }
     #endregion
 
@@ -280,8 +262,7 @@ public class PlayerMovement : MonoBehaviour
         float speedDif = targetSpeed - _rb.linearVelocity.x;
         float movement = speedDif * accelRate;
 
-        _rb.AddForce(movement * Vector3.forward, ForceMode.Force);
-        Debug.Log(_rb.linearVelocity.x);
+        _rb.AddForce(movement * Vector3.right * 100, ForceMode.Force);
     }
     #endregion
 
@@ -372,15 +353,18 @@ public class PlayerMovement : MonoBehaviour
     #region EDITOR METHODS
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.limeGreen;
-        Gizmos.DrawWireCube(_groundCheckPoint.position, _groundCheckSize);
-        Gizmos.color = Color.purple;
-        Gizmos.DrawWireCube(_rightWallCheckPoint.position, _wallCheckSize);
-        Gizmos.DrawWireCube(_leftWallCheckPoint.position, _wallCheckSize);
+        
     }
     #endregion
 
     #region TEMPORARY METHODS
-
+    private void OnTriggerStay(Collider other)
+    {
+        GameObject obj = other.gameObject;
+        if (obj != null && obj.layer == 6)
+        {
+            LastOnGroundTime = 0.1f;
+        }
+    }
     #endregion
 }
