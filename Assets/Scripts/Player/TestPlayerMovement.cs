@@ -12,6 +12,7 @@ public class TestPlayerMovement : MonoBehaviour
     Rigidbody RB;
     Vector2 moveInput;
     bool isGrounded;
+    public bool IsGrounded => isGrounded;
     private PlayerInput playerInput;
 
     Camera Main;
