@@ -30,10 +30,8 @@ public class WeakPlatform : MonoBehaviour
     {
         if (state != State.Idle) return;
 
-        // Checks the exact object the collider is on
-        if (collision.gameObject.GetComponent<TemporaryMovement>() == null) return;
-
-        StartCoroutine(BreakSequence());
+        if (collision.gameObject.tag == "Player")
+            StartCoroutine(BreakSequence());
     }
 
     private IEnumerator BreakSequence()

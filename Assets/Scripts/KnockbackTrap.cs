@@ -4,8 +4,8 @@ public class KnockbackTrap : MonoBehaviour
 {
     public enum KnockbackDirectionMode
     {
-        Radial, // from trap center to target
-        Fixed   // always along the trap's own forward axis
+        Radial, // from trap center to target 
+        Fixed   // always along the trap's own forward axis (blue arrow)
     }
 
     [Header("Knockback Settings")]
@@ -13,18 +13,18 @@ public class KnockbackTrap : MonoBehaviour
     public float knockbackForce = 10f;
     public float upwardBoost = 2f;
     public ForceMode forceMode = ForceMode.Impulse;
-    public float knockbackLockoutDuration = 0.25f;
+    public float knockbackLockoutDuration = 0.5f;
 
     private void OnTriggerEnter(Collider other)
     {
-        Rigidbody targetRb = other.GetComponent<Rigidbody>();
-        if (targetRb == null) return;
+        KnockbackReceiver player = other.GetComponent<KnockbackReceiver>();
+        if (player == null) return;
 
         Vector3 direction;
 
         if (directionMode == KnockbackDirectionMode.Fixed)
         {
-            direction = transform.forward; // orient this in the Inspector to point away from the wall
+            direction = transform.forward;
         }
         else
         {
@@ -35,12 +35,7 @@ public class KnockbackTrap : MonoBehaviour
 
         direction = (direction + Vector3.up * (upwardBoost / knockbackForce)).normalized;
 
-        targetRb.linearVelocity = Vector3.zero;
-        targetRb.AddForce(direction * knockbackForce, forceMode);
-
-        var movement = other.GetComponent<TemporaryMovement>();
-        if (movement != null)
-            movement.ApplyKnockbackLock(knockbackLockoutDuration);
+        player.ApplyKnockback(direction * knockbackForce, forceMode, knockbackLockoutDuration);
     }
 
     private void OnDrawGizmosSelected()
