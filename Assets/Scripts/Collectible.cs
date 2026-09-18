@@ -31,8 +31,7 @@ public class Collectible : MonoBehaviour
         {
             if(prefab.name.Contains("HeartGem"))
             {
-                //health += 1; 
-
+                HeartsUI.Instance.AddHeart(value);
                 Destroy(prefab);
             }
             else
