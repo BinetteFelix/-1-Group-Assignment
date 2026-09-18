@@ -10,6 +10,7 @@ public class TestPlayerMovement : MonoBehaviour
     [SerializeField] private PlayerData Data;
 
     Rigidbody RB;
+    public float VerticalVelocity => RB.linearVelocity.y;
     Vector2 moveInput;
     bool isGrounded;
     public bool IsGrounded => isGrounded;

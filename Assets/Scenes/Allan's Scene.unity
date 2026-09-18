@@ -2702,6 +2702,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TestPlayerAudio
   jumpSound: {fileID: 8300000, guid: 8420cf17e21d6354a98e6ef6d19dc9cc, type: 3}
   landingSound: {fileID: 8300000, guid: b41912306bfe2374dbeba9c547463692, type: 3}
+  hardLandingSound: {fileID: 8300000, guid: 3d8f480d252db9449b2f978284506f8e, type: 3}
+  hardLandingThreshold: -15
 --- !u!1 &918753897
 GameObject:
   m_ObjectHideFlags: 0
@@ -6726,6 +6728,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TestPlayerAudio
   jumpSound: {fileID: 8300000, guid: f85e18b3e969dac4bbfc7f6b18139932, type: 3}
   landingSound: {fileID: 0}
+  hardLandingSound: {fileID: 0}
+  hardLandingThreshold: -10
 --- !u!82 &2019212091
 AudioSource:
   m_ObjectHideFlags: 0
