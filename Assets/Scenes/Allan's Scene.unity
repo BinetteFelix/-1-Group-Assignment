@@ -2703,6 +2703,11 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: 8420cf17e21d6354a98e6ef6d19dc9cc, type: 3}
   landingSound: {fileID: 8300000, guid: b41912306bfe2374dbeba9c547463692, type: 3}
   hardLandingSound: {fileID: 8300000, guid: 3d8f480d252db9449b2f978284506f8e, type: 3}
+  footstepSounds:
+  - {fileID: 8300000, guid: b993df4a93c1d304ab19d8b2eb88c9a5, type: 3}
+  - {fileID: 8300000, guid: 6ad0cf00f050bee41a2dee098475dc78, type: 3}
+  - {fileID: 8300000, guid: 7ca5a9710db4327439c9f8cb8204615e, type: 3}
+  - {fileID: 8300000, guid: b995bc1775ea83b4b8f861763e9a1424, type: 3}
   hardLandingThreshold: -15
 --- !u!1 &918753897
 GameObject:
@@ -6729,6 +6734,7 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: f85e18b3e969dac4bbfc7f6b18139932, type: 3}
   landingSound: {fileID: 0}
   hardLandingSound: {fileID: 0}
+  footstepSounds: []
   hardLandingThreshold: -10
 --- !u!82 &2019212091
 AudioSource:

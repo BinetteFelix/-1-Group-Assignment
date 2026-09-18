@@ -12,6 +12,7 @@ public class TestPlayerMovement : MonoBehaviour
     Rigidbody RB;
     public float VerticalVelocity => RB.linearVelocity.y;
     Vector2 moveInput;
+    public bool IsMoving => moveInput.x != 0 || moveInput.y != 0;
     bool isGrounded;
     public bool IsGrounded => isGrounded;
     private PlayerInput playerInput;
