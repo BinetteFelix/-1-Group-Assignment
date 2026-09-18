@@ -1,15 +1,19 @@
-using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
+    #region COMPONENTS
     [SerializeField] private PlayerData Data;
+
+    private float moveSpeed = 5;
+    [SerializeField] Transform orientation;
     // [SerializeField] private HealthManager Health;
     private Rigidbody _rb;
-
-    Collider[] walls;
+    #endregion
 
     #region INPUT PARAMETERS
     public Vector2 _moveInput;
@@ -40,15 +44,11 @@ public class PlayerMovement : MonoBehaviour
     // Wall Jumping
     private float _wallJumpStartTime;
     private int _lastWallJumpDir;
+    CursorLockMode m_LockMode;
     #endregion
 
     #region CHECK PARAMETERS
     [Header("Checks")]
-    [SerializeField] private Transform _groundCheckPoint;
-    [SerializeField] private Vector3 _groundCheckSize = new Vector3(0.49f, 0.03f);
-    [Space(5)]
-    [SerializeField] private Transform _rightWallCheckPoint;
-    [SerializeField] private Transform _leftWallCheckPoint;
     [SerializeField] private Vector3 _wallCheckSize = new Vector3(0.5f, 1f);
     #endregion
 
@@ -63,6 +63,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        m_LockMode = CursorLockMode.Locked;
+        Cursor.lockState = m_LockMode;
         moveAction.Enable();
         jumpAction.Enable();
         _rb = GetComponent<Rigidbody>();
@@ -70,7 +72,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        
+        Debug.Log(CanJump());
+
+        //Debug.Log(LastOnWallLeftTime);
+
         #region TIMERS
         LastOnGroundTime -= Time.deltaTime;
         LastOnWallTime -= Time.deltaTime;
@@ -97,27 +102,14 @@ public class PlayerMovement : MonoBehaviour
         #region COLLISION CHECKS
         if (!IsJumping)
         {
-            // Ground Check
-            if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer))
-            {
-                if (LastOnGroundTime < 0.1f && _isJumpFalling)
-                {
-
-                }
-
-                LastOnGroundTime = Data.coyoteTime;
-            }
 
             // Right Wall Check
-            GameObject wallobject = GameObject.FindGameObjectWithTag("Wall");
-
-
-            if (Physics.OverlapBoxNonAlloc(_rightWallCheckPoint.position, _wallCheckSize / 2, walls, Quaternion.identity) > 0 && !IsWallJumping)
+           /* if (Physics.OverlapBoxNonAlloc(_rightWallCheckPoint.position, _wallCheckSize / 2, walls, Quaternion.identity) > 0 && !IsWallJumping)
                 LastOnWallRightTime = Data.coyoteTime;
 
             // Left Wall Check
             if (Physics.OverlapBoxNonAlloc(_leftWallCheckPoint.position, _wallCheckSize / 2, walls, Quaternion.identity) > 0 && !IsWallJumping)
-                LastOnWallLeftTime = Data.coyoteTime;
+                LastOnWallLeftTime = Data.coyoteTime;*/
 
             LastOnWallTime = Mathf.Max(LastOnWallLeftTime, LastOnWallRightTime);
         }
@@ -181,7 +173,6 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region GRAVITY
-        /*
         if (IsSliding)
         {
             if ((WallSlideTime < 0 && LastOnWallLeftTime > 0 && _moveInput.x < 0) || (WallSlideTime < 0 && LastOnWallRightTime > 0 && _moveInput.x > 0))
@@ -212,7 +203,6 @@ public class PlayerMovement : MonoBehaviour
         {
             SetGravityScale(Data.gravityScale);
         }
-        */
         #endregion*/
     }
     private void FixedUpdate()
@@ -220,14 +210,17 @@ public class PlayerMovement : MonoBehaviour
         if (IsWallJumping)
             Run(Data.wallJumpRunlerp);
         else
+        {
             Run(1);
-
+            SpeedControl();
+        }
         if (IsSliding)
         {
             Slide();
             WallSlideTime -= Time.deltaTime;
         }
     }
+
     #region INPUT CALLBACKS
     public void OnJumpInput()
     {
@@ -243,45 +236,32 @@ public class PlayerMovement : MonoBehaviour
     #region GENERAL METHODS
     public void SetGravityScale(float scale)
     {
-        //_rb.gravityScale = scale;
+        _rb.AddForce(Vector3.down * scale);
     }
     #endregion
 
     #region RUN METHODS
     private void Run(float lerpAmount)
     {
-        float targetSpeed = _moveInput.y * Data.runMaxSpeed;
-        targetSpeed = Mathf.Lerp(_rb.linearVelocity.z, targetSpeed, lerpAmount);
+        Vector3 moveDirection = orientation.forward * moveAction.ReadValue<Vector2>().y + orientation.right * moveAction.ReadValue<Vector2>().x;
 
-        #region Calculate AccelRate
-        float accelRate;
+        
 
-        if (LastOnGroundTime > 0)
-            accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? Data.runAccelAmount : Data.runDeccelAmount;
-        else
-            accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? Data.runAccelAmount * Data.accelInAir : Data.runDeccelAmount * Data.deccelInAir;
-        #endregion
+        _rb.AddForce(moveDirection.normalized * Data.runMaxSpeed * 10f, ForceMode.Force);
 
-        #region Add Bonus Jump Apex Acceleration
-        if ((IsJumping || IsWallJumping || _isJumpFalling) && Mathf.Abs(_rb.linearVelocity.y) < Data.jumpHangTimeThreshold)
+        //_rb.MovePosition(transform.position + ((transform.position + new Vector3(_moveInput.x, 0, _moveInput.y)) - transform.position) * _moveInput.magnitude * accelRate * Time.deltaTime);
+        
+    }
+    private void SpeedControl()
+    {
+
+        Vector3 flatVelocity = new Vector3(_rb.linearVelocity.x, 0, _rb.linearVelocity.z);
+
+        if(flatVelocity.magnitude > Data.runMaxSpeed)
         {
-            accelRate *= Data.jumpHangAccelerationMult;
-            targetSpeed *= Data.jumpHangMaxSpeedMult;
+            Vector3 limitedVelocity = flatVelocity.normalized * Data.runMaxSpeed;
+            _rb.linearVelocity = new Vector3(limitedVelocity.x, _rb.linearVelocity.y, limitedVelocity.z);
         }
-        #endregion
-
-        #region Conserve Momentum
-        if (Data.doConserveMomentum && Mathf.Abs(_rb.linearVelocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(_rb.linearVelocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && LastOnGroundTime < 0)
-        {
-            accelRate = 0;
-        }
-        #endregion
-
-        float speedDif = targetSpeed - _rb.linearVelocity.x;
-        float movement = speedDif * accelRate;
-
-        _rb.AddForce(movement * Vector3.forward, ForceMode.Force);
-        Debug.Log(_rb.linearVelocity.x);
     }
     #endregion
 
@@ -372,15 +352,24 @@ public class PlayerMovement : MonoBehaviour
     #region EDITOR METHODS
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.limeGreen;
-        Gizmos.DrawWireCube(_groundCheckPoint.position, _groundCheckSize);
-        Gizmos.color = Color.purple;
-        Gizmos.DrawWireCube(_rightWallCheckPoint.position, _wallCheckSize);
-        Gizmos.DrawWireCube(_leftWallCheckPoint.position, _wallCheckSize);
+        
     }
     #endregion
 
     #region TEMPORARY METHODS
+    private void OnTriggerStay(Collider other)
+    {
+        GameObject obj = other.gameObject;
+        if (obj != null && obj.layer == 6)
+        {
+            LastOnGroundTime = 0.1f;
+        }
+        else if (obj != null && obj.layer == 7)
+        {
+            LastOnWallTime = 0.1f;
+        }
 
+        
+    }
     #endregion
 }
