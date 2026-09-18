@@ -12,23 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 905c23527ddb4ba498efbadb18b59b6c, type: 3}
   m_Name: ParkourPlayer
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
-  gravityStrenght: -48.979595
-  gravityScale: 4.992823
-  fallGravityMult: 1
-  maxFallSpeed: 20
-  fastFallGravityMult: 2
-  maxFastFallSpeed: 30
-  runMaxSpeed: 9
-  runAcceleration: 0.01
-  runDecceleration: 0.01
-  runAccelAmount: 0.055555556
-  runDeccelAmount: 0.055555556
-  accelInAir: 0
-  deccelInAir: 0.65
-  doConserveMomentum: 0
-  jumpHeight: 3
-  jumpTimeToApex: 0.35
-  jumpForce: 17.142859
+  gravityStrenght: 19.62
+  runMaxSpeed: 10
+  jumpForce: 11
+  maxFallSpeed: -49.05
   jumpCutGravityMult: 2
   jumpHangGravityMult: 0.5
   jumpHangTimeThreshold: 1
