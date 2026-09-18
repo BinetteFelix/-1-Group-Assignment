@@ -3602,7 +3602,7 @@ Transform:
   m_GameObject: {fileID: 1175131647}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.0000038146973, y: 0, z: -17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4630,7 +4630,7 @@ Transform:
   m_GameObject: {fileID: 1435177253}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3512498, y: 27.070002, z: -55.136997}
+  m_LocalPosition: {x: -15.648752, y: 27.070002, z: -55.136993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6130,7 +6130,7 @@ Transform:
   m_GameObject: {fileID: 1982478892}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3512498, y: 27.070002, z: -55.136997}
+  m_LocalPosition: {x: -15.648752, y: 27.070002, z: -55.136993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6238,9 +6238,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBasicMultiChannelPerlin
   NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
   PivotOffset: {x: 0, y: 0, z: 0}
-  AmplitudeGain: 0.75
-  FrequencyGain: 0.64
-  m_NoiseOffsets: {x: 0, y: 0, z: 0}
+  AmplitudeGain: 2
+  FrequencyGain: 0.25
+  m_NoiseOffsets: {x: -943.69055, y: -507.65683, z: -480.52634}
 --- !u!1 &2005412642
 GameObject:
   m_ObjectHideFlags: 0
