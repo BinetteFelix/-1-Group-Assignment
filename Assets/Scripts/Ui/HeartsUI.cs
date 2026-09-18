@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class HeartsUI : MonoBehaviour
@@ -42,13 +43,30 @@ public class HeartsUI : MonoBehaviour
         }
     }
 
+    //TEST
+    private void Update()
+    {
+        if (Keyboard.current[Key.O].wasPressedThisFrame)
+        {
+            RemoveHeart(1);
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        Die();
+    }
+
+
+
     public void RemoveHeart(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
             if (currentHP <= 0) break;
             currentHP--;
-            hearts[currentHP].Hide(); 
+            hearts[currentHP].Hide();
         }
     }
 
@@ -61,5 +79,16 @@ public class HeartsUI : MonoBehaviour
             currentHP++;
         }
     }
+
+    //Game Over
+
+    public void Die()
+    {
+        if (hearts == null || currentHP == 0)
+        {
+            GameOver.Instance.GameOverSceen();
+        }
+    }
+
 }
 
