@@ -89,9 +89,13 @@ public class Platform : MonoBehaviour
         float angleInRadians = (linearT * Mathf.PI) - (Mathf.PI * 0.5f);
         float smoothT = (Mathf.Sin(angleInRadians) * 0.5f) + 0.5f;
 
-        if ((isPingPong && !isTrigger) || isTriggr)
+        if ((isPingPong && !isTrigger) || (isPingPong && isTriggr))
         {
             transform.position = Vector3.Lerp(startPos, endPos, smoothT); 
+        }
+        else if ((!isPingPong && isTrigger))
+        {
+            transform.position = Vector3.MoveTowards(transform.position, endPos, smoothT);
         }
 
         if (isWaiting && isPausing)
