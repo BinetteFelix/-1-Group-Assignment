@@ -8,12 +8,17 @@ public class WallRunning : MonoBehaviour
     [SerializeField] LayerMask whatIsWall;
     [SerializeField] LayerMask whatIsGround;
     public float wallRunForce;
+    public float wallJumpUpForce; 
+    public float wallJumpSideForce;
+
+
     public float wallClimbSpeed;
     public float maxWallRunTime;
     private float wallRunTimer;
 
     [Header("Input")]
     [SerializeField] private InputAction moveAction;
+    [SerializeField] private InputAction jumpAction;
     private Vector2 moveInput;
     [SerializeField] private InputAction climpUpAction;
     [SerializeField] private InputAction climpDownAction;
@@ -28,15 +33,26 @@ public class WallRunning : MonoBehaviour
     private bool wallLeftTouch;
     private bool wallRightTouch;
 
+    [Header("Exiting")]
+    private bool exitingWall;
+    public float exitWallTime;
+    private float exitWallTimer;
+
+    [Header("Gravity")]
+    public bool useGravity;
+    public float gravityCounterForce;
+
     [Header("References")]
     public Transform orientation;
     private PlayerMovement movement;
     private Rigidbody RB;
+    [SerializeField] private PlayerCamera cam;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         moveAction.Enable();
+        jumpAction.Enable();
         climpUpAction.Enable();
         climpDownAction.Enable();
         RB = GetComponent<Rigidbody>();
@@ -72,10 +88,33 @@ public class WallRunning : MonoBehaviour
         moveInput = moveAction.ReadValue<Vector2>();
         upwardsRunning = climpUpAction.IsPressed();
         downwardsRunning = climpDownAction.IsPressed();
-        if ((wallLeftTouch || wallRightTouch) && moveInput.y > 0 && AboveGround())
+        if ((wallLeftTouch || wallRightTouch) && moveInput.y > 0 && AboveGround() && !exitingWall)
         {
             if (!movement.wallrunning)
                 StartWallRun();
+
+            if (wallRunTimer > 0)
+                wallRunTimer -= Time.deltaTime;
+
+            if(wallRunTimer <= 0 && movement.wallrunning)
+            {
+                exitingWall = true;
+                exitWallTimer = exitWallTime;
+            }
+
+            if (jumpAction.WasPressedThisFrame())
+                WallJump();
+        }
+        else if (exitingWall)
+        {
+            if (movement.wallrunning)
+                StopWallRun();
+
+            if (exitWallTimer > 0)
+                exitWallTimer -= Time.deltaTime;
+
+            if (exitWallTimer <= 0)
+                exitingWall = false;
         }
         else
         {
@@ -88,11 +127,17 @@ public class WallRunning : MonoBehaviour
     private void StartWallRun()
     {
         movement.wallrunning = true;
+        wallRunTimer = maxWallRunTime;
+
+        RB.linearVelocity = new Vector3(RB.linearVelocity.x, 0, RB.linearVelocity.z);
+
+        cam.DoFov(90f);
+        if (wallLeftTouch) cam.DoTilt(-5f);
+        if (wallRightTouch) cam.DoTilt(5f);
     }
     private void WallRunningMovement()
     {
-        RB.useGravity = false;
-        RB.linearVelocity = new Vector3(RB.linearVelocity.x, 0, RB.linearVelocity.z);
+        RB.useGravity = useGravity;
 
         Vector3 wallNormal = wallRightTouch ? rightWallHit.normal : leftWallHit.normal;
         Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
@@ -108,10 +153,26 @@ public class WallRunning : MonoBehaviour
             RB.linearVelocity = new Vector3(RB.linearVelocity.x, -wallClimbSpeed, RB.linearVelocity.z);
 
         if (!(wallLeftTouch && moveInput.x > 0) && !(wallRightTouch && moveInput.x < 0))
-            RB.AddForce(-wallNormal * 100f, ForceMode.Force);
+            RB.AddForce(-wallNormal * 50f, ForceMode.Force);
+
+        if (useGravity)
+            RB.AddForce(transform.up * gravityCounterForce, ForceMode.Force);
     }
     private void StopWallRun()
     {
         movement.wallrunning = false;
+        cam.DoFov(80);
+        cam.DoTilt(0f);
+    }
+    private void WallJump()
+    {
+        exitingWall = true;
+        exitWallTimer = exitWallTime;
+
+        Vector3 wallNormal = wallRightTouch ? rightWallHit.normal : leftWallHit.normal;
+        Vector3 forceToApply = transform.up * wallJumpUpForce + wallNormal * wallJumpSideForce;
+        RB.linearVelocity = new Vector3(RB.linearVelocity.x, 0f, RB.linearVelocity.z);
+
+        RB.AddForce(forceToApply, ForceMode.Impulse);
     }
 }

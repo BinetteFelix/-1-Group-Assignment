@@ -125,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
             desiredMoveSpeed = wallRunSpeed;
             sprintAction.Disable();
             crouchAction.Disable();
+            //jumpAction.Disable();
         }
         else if (IsSliding)
         {
@@ -151,6 +152,7 @@ public class PlayerMovement : MonoBehaviour
             desiredMoveSpeed = walkSpeed;
             sprintAction.Enable();
             crouchAction.Enable();
+            jumpAction.Enable();
         }
         else
             state = MovementState.air;
@@ -206,7 +208,8 @@ public class PlayerMovement : MonoBehaviour
         else
             RB.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
-        RB.useGravity = !OnSlope();
+        if (!wallrunning)
+            RB.useGravity = !OnSlope();
     }
     private void SpeedControl()
     {
