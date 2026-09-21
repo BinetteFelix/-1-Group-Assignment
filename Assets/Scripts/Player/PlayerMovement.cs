@@ -95,14 +95,10 @@ public class PlayerMovement : MonoBehaviour
 
         #region INPUT HANDLER
         if (crouchAction.WasPressedThisFrame())
-        {
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            RB.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-        }
+            OnCrouchDown();
         if (crouchAction.WasReleasedThisFrame())
-        {
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-        }
+            OnCrouchUp();
+
         if (jumpAction.IsPressed() && CanJump())
         {
             readyToJump = false;
@@ -127,6 +123,8 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.wallrunning;
             desiredMoveSpeed = wallRunSpeed;
+            sprintAction.Disable();
+            crouchAction.Disable();
         }
         else if (IsSliding)
         {
@@ -137,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
             else
                 desiredMoveSpeed = sprintSpeed;
         }
-        else if (crouchAction.IsPressed())
+        else if (crouchAction.IsPressed() && crouchAction.enabled)
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
@@ -151,6 +149,8 @@ public class PlayerMovement : MonoBehaviour
         {
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
+            sprintAction.Enable();
+            crouchAction.Enable();
         }
         else
             state = MovementState.air;
@@ -233,6 +233,15 @@ public class PlayerMovement : MonoBehaviour
     {
         readyToJump = true;
         exitingSlope = false;
+    }
+    private void OnCrouchDown()
+    {
+        transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+        RB.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+    }
+    private void OnCrouchUp()
+    {
+        transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
     }
     public bool OnSlope()
     {
