@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b301fdb93c76dfc4b8e0065f2f17957d
+timeCreated: 1519687102
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123650
+  packageName: CastlePack_3D enviroment
+  packageVersion: 1.0
+  assetPath: Assets/castle_assets_package/Materials/mtl_wood.mat
+  uploadId: 260246

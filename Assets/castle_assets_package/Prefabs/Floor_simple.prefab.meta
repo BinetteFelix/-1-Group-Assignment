@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 4001d3a593566da41a7e842d0f235356
+timeCreated: 1533810547
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123650
+  packageName: CastlePack_3D enviroment
+  packageVersion: 1.0
+  assetPath: Assets/castle_assets_package/Prefabs/Floor_simple.prefab
+  uploadId: 260246

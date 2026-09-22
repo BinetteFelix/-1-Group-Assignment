@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: e29b863f7d4af8948825fdb11e12c751
+timeCreated: 1533810551
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123650
+  packageName: CastlePack_3D enviroment
+  packageVersion: 1.0
+  assetPath: Assets/castle_assets_package/Prefabs/Sign.prefab
+  uploadId: 260246

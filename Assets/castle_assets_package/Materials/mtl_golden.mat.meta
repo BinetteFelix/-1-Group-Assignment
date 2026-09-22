@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fcbddd9cb6d1ac24c9f3ff43377d9d14
+timeCreated: 1519230555
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123650
+  packageName: CastlePack_3D enviroment
+  packageVersion: 1.0
+  assetPath: Assets/castle_assets_package/Materials/mtl_golden.mat
+  uploadId: 260246

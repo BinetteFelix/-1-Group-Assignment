@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: ef84976aa14fc6e49a7e8c864191dc46
+timeCreated: 1533810544
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123650
+  packageName: CastlePack_3D enviroment
+  packageVersion: 1.0
+  assetPath: Assets/castle_assets_package/Prefabs/Floor_spikes.prefab
+  uploadId: 260246

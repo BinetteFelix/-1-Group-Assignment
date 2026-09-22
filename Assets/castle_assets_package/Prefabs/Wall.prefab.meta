@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: ae333be69603eb24aa39eefacc0cbec1
+timeCreated: 1533810556
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123650
+  packageName: CastlePack_3D enviroment
+  packageVersion: 1.0
+  assetPath: Assets/castle_assets_package/Prefabs/Wall.prefab
+  uploadId: 260246
