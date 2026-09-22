@@ -57,7 +57,7 @@ public class TestPlayerAudio : MonoBehaviour
             }
             else
             {
-                sfxAudioSource.PlayOneShot(landingSound, 0.9f);               // We call on PlayOneShot to play the sound once using the Audio Source reference and playing the audio file that is in the Audio Clip field.
+                sfxAudioSource.PlayOneShot(landingSound);               // We call on PlayOneShot to play the sound once using the Audio Source reference and playing the audio file that is in the Audio Clip field.
             }
             lastLandingSoundTime = Time.time;                                 // Change the variable lastLandingSoundTime to equal the current time that has passed so we can correctly check how much time has passed since the last time the landing sound played.
                 
@@ -73,7 +73,7 @@ public class TestPlayerAudio : MonoBehaviour
                  randomIndex = Random.Range(0, footstepSounds.Length);          // If the statement in the while loop stays true than we continue looking for another random index until it's not the same.
             }
 
-            sfxAudioSource.PlayOneShot(footstepSounds[randomIndex], 0.8f);      // Plays the audio file of the random index that was selected.
+            sfxAudioSource.PlayOneShot(footstepSounds[randomIndex]);      // Plays the audio file of the random index that was selected.
             lastFootstepSound = Time.time;                                      // Resets the timer for the last played footstep variable. Basically makes out cooldown always valid since it now counts from when last the sound was played and not from 0 like in the beginning.
             lastFootstepIndex = randomIndex;                                    // Setting the value of the randomIndex (that just played) to the last played index variable. Next time it checks for repeat sounds it will know which one was played last
         }
