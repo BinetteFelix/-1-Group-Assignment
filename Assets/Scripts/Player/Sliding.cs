@@ -39,9 +39,15 @@ public class Sliding : MonoBehaviour
         moveInput = moveAction.ReadValue<Vector2>();
 
         if (slideAction.WasPressedThisFrame() && moveInput != Vector2.zero)
+        {
             StartSlide();
+            movement.camera.DoFov(90, 0.25f);
+        }
         if (slideAction.WasReleasedThisFrame() && movement.IsSliding)
+        {
             StopSlide();
+            movement.camera.DoFov(80, 0.25f);
+        }
     }
     private void FixedUpdate()
     {

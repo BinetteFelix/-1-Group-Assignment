@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
     [SerializeField] PlayerData Data;
 
-    [SerializeField] private PlayerCamera camera;
+    [SerializeField] public PlayerCamera camera;
     Camera Main;
 
     Vector3 moveDirection;
@@ -196,21 +196,21 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
             if (crouchAction.WasPressedThisFrame())
-                camera.DoFov(75);
+                camera.DoFov(75, 0.25f);
         }
         else if (crouchAction.WasReleasedThisFrame())
-            camera.DoFov(80);
+            camera.DoFov(80, 0.25f);
         else if (IsGrounded && sprintAction.IsPressed())
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
 
             if (sprintAction.WasPressedThisFrame())
-                camera.DoFov(85);
+                camera.DoFov(85, 0.25f);
 
         }
         else if (sprintAction.WasReleasedThisFrame())
-            camera.DoFov(80);
+            camera.DoFov(80, 0.25f);
         else if (IsGrounded)
         {
             state = MovementState.walking;

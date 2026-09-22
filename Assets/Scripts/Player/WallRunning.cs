@@ -130,9 +130,9 @@ public class WallRunning : MonoBehaviour
 
         RB.linearVelocity = new Vector3(RB.linearVelocity.x, 0, RB.linearVelocity.z);
 
-        cam.DoFov(90f);
-        if (wallLeftTouch) cam.DoTilt(-5f);
-        if (wallRightTouch) cam.DoTilt(5f);
+        cam.DoFov(90f, 0.25f);
+        if (wallLeftTouch) cam.DoTilt(-5f, 0.25f);
+        if (wallRightTouch) cam.DoTilt(5f, 0.25f);
     }
     private void WallRunningMovement()
     {
@@ -160,8 +160,8 @@ public class WallRunning : MonoBehaviour
     private void StopWallRun()
     {
         movement.wallrunning = false;
-        cam.DoFov(80);
-        cam.DoTilt(0f);
+        cam.DoFov(80, 0.25f);
+        cam.DoTilt(0f, 0.25f);
     }
     private void WallJump()
     {

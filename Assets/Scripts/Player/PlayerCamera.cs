@@ -6,12 +6,12 @@ public class PlayerCamera : MonoBehaviour
 {
     [SerializeField] private GameObject camHolder;
     [SerializeField] private CinemachineCamera cam;
-    public void DoFov(float endValue)
+    public void DoFov(float endValue, float lerpTime)
     {
-        StopCoroutine(FovChange(endValue));
-        StartCoroutine(FovChange(endValue));
+        StopCoroutine(FovChange(endValue, lerpTime));
+        StartCoroutine(FovChange(endValue, lerpTime));
     }
-    private IEnumerator FovChange(float endValue)
+    private IEnumerator FovChange(float endValue, float lerpTime)
     {
         float time = 0.0f;
         float timer = 0.3f;
@@ -24,19 +24,19 @@ public class PlayerCamera : MonoBehaviour
             yield return null;
         }
     }
-    public void DoTilt(float zTilt)
+    public void DoTilt(float zTilt, float lerpTime)
     {
-        StopCoroutine(TiltChange(zTilt));
-        StartCoroutine(TiltChange(zTilt));
+        StopCoroutine(TiltChange(zTilt, lerpTime));
+        StartCoroutine(TiltChange(zTilt, lerpTime));
     }
-    private IEnumerator TiltChange(float zTilt)
+    private IEnumerator TiltChange(float zTilt, float lerpTime)
     {
         float time = 0.0f;
         float timer = 0.3f;
 
         while (time < timer)
         {
-            cam.Lens.Dutch = Mathf.Lerp(cam.Lens.Dutch, zTilt, 0.25f);
+            cam.Lens.Dutch = Mathf.Lerp(cam.Lens.Dutch, zTilt, lerpTime);
             time += Time.deltaTime;
 
             yield return null;
