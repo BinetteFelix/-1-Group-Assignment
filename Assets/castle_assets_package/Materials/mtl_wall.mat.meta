@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a4edbbfff8e104143be551740bc97437
+timeCreated: 1519230573
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123650
+  packageName: CastlePack_3D enviroment
+  packageVersion: 1.0
+  assetPath: Assets/castle_assets_package/Materials/mtl_wall.mat
+  uploadId: 260246

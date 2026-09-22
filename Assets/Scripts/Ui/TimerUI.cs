@@ -28,7 +28,7 @@ public class TimerUI : MonoBehaviour
     private void TriggerTimeUp()
     {
         OnTimeUp?.Invoke();
-        GameOver.Instance.GameOverSceen();
+        GameOver.Instance.Fail();
     }
 
 }

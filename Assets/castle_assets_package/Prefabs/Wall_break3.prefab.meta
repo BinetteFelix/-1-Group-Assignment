@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 1f941f8e8937fba408aea26b2e230ba2
+timeCreated: 1533810578
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123650
+  packageName: CastlePack_3D enviroment
+  packageVersion: 1.0
+  assetPath: Assets/castle_assets_package/Prefabs/Wall_break3.prefab
+  uploadId: 260246

@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/MainMenu.unity
+    guid: 4340dbec3ebcddf4d809530cd9bbcff9
+  - enabled: 1
+    path: Assets/Scenes/Felix's Scene.unity
+    guid: 72be64e5d3d9cad42adbc98ac1ff8b8b
   m_configObjects:
     com.unity.adaptivePerformance.basic.provider_settings: {fileID: 11400000, guid: 6eb5f13c5b9375542b6dc29a64b6648d, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 9f66ed7e40548a2439113c5b142478ae, type: 2}

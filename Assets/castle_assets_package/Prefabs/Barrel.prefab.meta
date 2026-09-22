@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: cbec2bf780ae99d45828ede64d5a054a
+timeCreated: 1533810536
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123650
+  packageName: CastlePack_3D enviroment
+  packageVersion: 1.0
+  assetPath: Assets/castle_assets_package/Prefabs/Barrel.prefab
+  uploadId: 260246

@@ -16,6 +16,11 @@ public class PauseUI : MonoBehaviour
 
     //}
 
+    private void Start()
+    {
+        resumeButton.onClick.AddListener(ResumeButton);
+        mainmenuButton.onClick.AddListener(MainMenuButton);
+    }
 
     private void Update()
     {
@@ -26,32 +31,25 @@ public class PauseUI : MonoBehaviour
 
         }
 
-        ResumeButton();
-
-
     }
 
 
 
     public void ResumeButton()
     {
-        Debug.Log("1");
-        resumeButton.onClick.AddListener(() =>
-        {
-            Debug.Log("2");
             pausePanel.SetActive(false);
             Time.timeScale = 1;
-        });
     }
 
     public void RestartButton()
     {
-
+        //UnityEngine.SceneManagement.SceneManager.LoadScene("");
     }
 
     public void MainMenuButton()
     {
-        //UnityEngine.SceneManagement.SceneManager.LoadScene("");
+        Time.timeScale = 1;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
 }

@@ -2411,6 +2411,7 @@ GameObject:
   - component: {fileID: 844323640}
   - component: {fileID: 844323647}
   - component: {fileID: 844323646}
+  - component: {fileID: 844323648}
   m_Layer: 0
   m_Name: Player (1)
   m_TagString: Player
@@ -2700,6 +2701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: babc2c71539518648b7746a6e186d747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestPlayerAudio
+  sfxAudioSource: {fileID: 844323646}
+  bgmAudioSource: {fileID: 844323648}
   jumpSound: {fileID: 8300000, guid: 8420cf17e21d6354a98e6ef6d19dc9cc, type: 3}
   landingSound: {fileID: 8300000, guid: b41912306bfe2374dbeba9c547463692, type: 3}
   hardLandingSound: {fileID: 8300000, guid: 3d8f480d252db9449b2f978284506f8e, type: 3}
@@ -2708,7 +2711,109 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6ad0cf00f050bee41a2dee098475dc78, type: 3}
   - {fileID: 8300000, guid: 7ca5a9710db4327439c9f8cb8204615e, type: 3}
   - {fileID: 8300000, guid: b995bc1775ea83b4b8f861763e9a1424, type: 3}
+  gruntSounds:
+  - {fileID: 8300000, guid: d1a4b34f9c9584a39919a6f1ddbeb03e, type: 3}
+  - {fileID: 8300000, guid: 334441e4b58b24658beba204d6780d95, type: 3}
+  - {fileID: 8300000, guid: c33b58877ef714c259942f78e8f14187, type: 3}
+  - {fileID: 8300000, guid: 522c3fe9d479445c38b425662b271b27, type: 3}
   hardLandingThreshold: -15
+--- !u!82 &844323648
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844323638}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 7205ed82bc06cf941b5b3419bb45647f, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &918753897
 GameObject:
   m_ObjectHideFlags: 0
@@ -6731,10 +6836,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: babc2c71539518648b7746a6e186d747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestPlayerAudio
+  sfxAudioSource: {fileID: 0}
+  bgmAudioSource: {fileID: 0}
   jumpSound: {fileID: 8300000, guid: f85e18b3e969dac4bbfc7f6b18139932, type: 3}
   landingSound: {fileID: 0}
   hardLandingSound: {fileID: 0}
   footstepSounds: []
+  gruntSounds: []
   hardLandingThreshold: -10
 --- !u!82 &2019212091
 AudioSource:
