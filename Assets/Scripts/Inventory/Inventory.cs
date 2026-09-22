@@ -15,10 +15,28 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Vector3 offset = new Vector3(0, 20f, 0f);
 
     [SerializeField] float tossDelay = 0.3f;
+    [SerializeField] private Transform TossWP;
+    [SerializeField] private Transform ChestWP;
+    [SerializeField] float duration;
+    Vector3 tossPos;
+    Vector3 chestPos;
     
+    float moveDuration;
+
     private void Awake()
     {
         Instance = this;
+    }
+
+    void Start()
+    {
+        tossPos = TossWP.position;
+        chestPos = ChestWP.position;
+    }
+
+    void Update()
+    {
+        
     }
 
     public void AddCollectible(Collectible item)
@@ -43,11 +61,26 @@ public class Inventory : MonoBehaviour
             item.transform.position = Player.Instance.transform.position + offset;
             item.gameObject.SetActive(true);
 
-            CoinUI.Instance.AddCoin(item.value);
 
+            StartCoroutine(AnimateItemToChest(item));
             collectibles.RemoveAt(i);
 
             yield return new WaitForSeconds(tossDelay);
         }
+    }
+
+    private IEnumerator AnimateItemToChest(Collectible item)
+    {
+        Vector3 startPos = item.transform.position;
+        float elapsed = 0;
+
+        while(elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            item.transform.position = Vector3.Lerp(Vector3.Lerp(startPos, tossPos, elapsed / duration), Vector3.Lerp(tossPos, chestPos, elapsed / duration), elapsed / duration);
+            yield return null;
+        }
+            CoinUI.Instance.AddCoin(item.value);
+            item.gameObject.SetActive(false);
     }
 }
