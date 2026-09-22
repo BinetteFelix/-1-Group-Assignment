@@ -16,7 +16,7 @@ public class Cube : MonoBehaviour
     {
         if (tossOnStart)
         {
-            //Toss(gameObject);
+            Toss(gameObject);
         }
     }
 

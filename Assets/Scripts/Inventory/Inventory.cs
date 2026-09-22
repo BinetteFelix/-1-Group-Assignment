@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
@@ -12,8 +14,15 @@ public class Inventory : MonoBehaviour
 
     [SerializeField] private Transform TossWP;
     [SerializeField] private Transform ChestWP;
-    private Vector3 tossPos;
+    [SerializeField] private Vector3 offset = new Vector3(0, 20f, 0f);
+
+    [SerializeField] float tossDelay = 0.3f;
+    [SerializeField] AnimationCurve curve;
+    float explosionXAngle = 60f;
+    int initialCount;
+    //private Vector3 tossPos;
     private Vector3 chestPos;
+    
     private void Awake()
     {
         Instance = this;
@@ -21,7 +30,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        tossPos = TossWP.position;
+        //tossPos = TossWP.position;
         chestPos = ChestWP.position;
     }
 
@@ -33,27 +42,46 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-      
     }
 
-    public async Task UnloadCollectibles()
+    public void TriggerUnload()
     {
-        Time.timeScale = 0f;
-        foreach (var collectible in collectibles)
+        if (collectibles.Count > 0)
         {
-            Debug.Log("Unloading collectible: " + collectible.name);
-            Vector3 playerPos = Player.Instance.transform.position;
-            Rigidbody rb = collectible.GetComponent<Rigidbody>();
-            //rb.transform.position = playerPos;
-            // Debug.Log("Collectible position set to player position: " + rb.transform.position);
-            //rb.useGravity = true;
-            //collectible.gameObject.SetActive(true);
-            //rb.AddForce(0,50,0, ForceMode.Impulse);
-
-            CoinUI.Instance.AddCoin(collectible.value);
-            await Task.Delay(100);
+            StartCoroutine(UnloadCollectiblesRoutine());
         }
-        collectibles.Clear();
+        
     }
 
+    private IEnumerator UnloadCollectiblesRoutine()
+    {
+        initialCount = collectibles.Count;
+
+        for (int i = collectibles.Count - 1; i >= 0; i--)
+        {
+            Collectible item = collectibles[i];
+            float explosionYAngle = 360f / initialCount * i;
+            Quaternion target = Quaternion.Euler(explosionXAngle, explosionYAngle, 0);
+            item.transform.position = Player.Instance.transform.position + offset;
+            item.gameObject.SetActive(true);
+
+            if (item.TryGetComponent<Collider>(out var collider))
+            {
+                collider.isTrigger = false;
+            }
+
+            if (item.TryGetComponent<Rigidbody>(out var rb))
+            {
+                rb.isKinematic = true;
+                Vector3 throwDirection = (target * item.transform.position * Time.deltaTime);
+                item.transform.position = Vector3.Lerp(Vector3.Lerp(item.transform.position, throwDirection, 0.5f), Vector3.Lerp(item.transform.position, chestPos, 0.8f), 0.3f);
+                //rb.AddForce(throwDirection * UnityEngine.Random.Range(5f, 8f), ForceMode.Impulse);
+            }
+                CoinUI.Instance.AddCoin(item.value);
+
+            collectibles.RemoveAt(i);
+
+            yield return new WaitForSeconds(tossDelay);
+        }
+    }
 }

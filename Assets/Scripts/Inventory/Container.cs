@@ -1,9 +1,12 @@
+using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Container : MonoBehaviour
 {
     public static Container Instance;
     Animator animator;
+    [SerializeField] CinemachineCamera playerCamera;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -26,9 +29,14 @@ public class Container : MonoBehaviour
         }
         else if (other.CompareTag("Player"))
         {
-            Debug.Log("Player entered container trigger");
             animator.SetBool("open", true);
-            Inventory.Instance.UnloadCollectibles();
+            VictoryScene();
+            Inventory.Instance.TriggerUnload();
         }
+    }
+
+    void VictoryScene()
+    {
+        playerCamera.gameObject.SetActive(false);
     }
 }

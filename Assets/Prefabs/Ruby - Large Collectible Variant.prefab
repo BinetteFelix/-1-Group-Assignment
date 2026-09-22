@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 775982364962297164, guid: e61c9a4b7ad4e684f9866d27135607f5, type: 3}
+      propertyPath: isScaling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 775982364962297164, guid: e61c9a4b7ad4e684f9866d27135607f5, type: 3}
       propertyPath: endScale.x
       value: 0.7
       objectReference: {fileID: 0}
@@ -39,6 +43,10 @@ PrefabInstance:
     - target: {fileID: 8515284304091221328, guid: e61c9a4b7ad4e684f9866d27135607f5, type: 3}
       propertyPath: m_Name
       value: Ruby - Large Collectible Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8515284304091221328, guid: e61c9a4b7ad4e684f9866d27135607f5, type: 3}
+      propertyPath: m_TagString
+      value: Collectible
       objectReference: {fileID: 0}
     - target: {fileID: 9036346594766706666, guid: e61c9a4b7ad4e684f9866d27135607f5, type: 3}
       propertyPath: m_LocalPosition.x
