@@ -8,17 +8,7 @@ public class Collectible : MonoBehaviour
     public int Value => value;
     [SerializeField] private GameObject prefab;
     [SerializeField] private Rigidbody rb;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
+    public static event System.Action<bool> OnCollectiblePickedUp;
 
     public void OnTriggerEnter(Collider other)
     {
@@ -31,11 +21,13 @@ public class Collectible : MonoBehaviour
         {
             if(prefab.name.Contains("HeartGem"))
             {
+                OnCollectiblePickedUp?.Invoke(true);
                 HeartsUI.Instance.AddHeart(Value);
                 Destroy(prefab);
             }
             else
             {
+                OnCollectiblePickedUp?.Invoke(false);
                 prefab.SetActive(false);
                 Inventory.Instance.AddCollectible(this);
             }
