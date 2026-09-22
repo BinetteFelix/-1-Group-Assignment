@@ -21,6 +21,7 @@ public class TestPlayerAudio : MonoBehaviour
     private float lastFootstepSound;                                        // Variable to check when the last footstep sound was played so that we can actually use the cooldown we created for the footsteps.
     private int lastFootstepIndex = -1;                                     // Variable for storing the last index that was used that plays one of the audio files for footstep sound. Starts as -1 so that we don't accidentally play the index with value 0 twice in the beginning.
     private int lastGruntIndex = -1;                                        // Same idea as the starting value of index for footstep sounds.
+    private float peakFallVelocity;
     #endregion
 
 
@@ -30,6 +31,14 @@ public class TestPlayerAudio : MonoBehaviour
        playerMovement = GetComponent<TestPlayerMovement>();
     }
 
+
+    private void FixedUpdate()
+    {
+        if (!playerMovement.IsGrounded && playerMovement.VerticalVelocity < peakFallVelocity)
+        {
+            peakFallVelocity = playerMovement.VerticalVelocity;
+        }
+    }
     // Update is called once per frame
     void Update()                                       
     {
@@ -51,7 +60,7 @@ public class TestPlayerAudio : MonoBehaviour
         if (!wasGroundedLastFrame && playerMovement.IsGrounded && timeSinceLastLanding >= landingSoundCooldown)         /* The variable wasGroundedLastFrame is by default a false since I didn't explicitly say if it was false or true when creating it. */
         {                                                                                                               /* We check if it stays false and also if the isGrounded variable turns to true. As soon as it matches up it plays the sound in that frame. */
                                                                                                                         /* Added a cooldown for landing sound so it does trigger multiple times when ground check flickers (raycasting being unreliable). */
-        if (playerMovement.VerticalVelocity < hardLandingThreshold)                                                     /* Wanted to add a "harder landing sound" when landing from a specific height (or specific velocity).*/
+        if (peakFallVelocity < hardLandingThreshold)                                                     /* Wanted to add a "harder landing sound" when landing from a specific height (or specific velocity).*/
             {                                                                                                           /* Checks how fast the player is going vertically and plays a harder land sound if player is falling from a higher place.*/
                 sfxAudioSource.PlayOneShot(hardLandingSound);                                                           // Plays hard landing sound if conditions are met.
             }
@@ -60,6 +69,7 @@ public class TestPlayerAudio : MonoBehaviour
                 sfxAudioSource.PlayOneShot(landingSound);               // We call on PlayOneShot to play the sound once using the Audio Source reference and playing the audio file that is in the Audio Clip field.
             }
             lastLandingSoundTime = Time.time;                                 // Change the variable lastLandingSoundTime to equal the current time that has passed so we can correctly check how much time has passed since the last time the landing sound played.
+            peakFallVelocity = 0;
                 
         }
         wasGroundedLastFrame = playerMovement.IsGrounded;                     // We change the value of wasGroundedLastFrame to the same value as the player isGrounded check to not play the landing sound outside of cases where the player isn't landing from a jump.
@@ -78,4 +88,5 @@ public class TestPlayerAudio : MonoBehaviour
             lastFootstepIndex = randomIndex;                                    // Setting the value of the randomIndex (that just played) to the last played index variable. Next time it checks for repeat sounds it will know which one was played last
         }
     }
+    
 }
