@@ -55,18 +55,21 @@ public class Inventory : MonoBehaviour
 
     private IEnumerator UnloadCollectiblesRoutine()
     {
-        for (int i = collectibles.Count - 1; i >= 0; i--)
+        if(collectibles.Count > 0)
         {
-            Collectible item = collectibles[i];
-            item.transform.position = Player.Instance.transform.position + offset;
-            item.gameObject.SetActive(true);
+            for (int i = collectibles.Count - 1; i >= 0; i--)
+            {
+                Collectible item = collectibles[i];
+                item.transform.position = Player.Instance.transform.position + offset;
+                item.gameObject.SetActive(true);
 
+                StartCoroutine(AnimateItemToChest(item));
+                collectibles.RemoveAt(i);
 
-            StartCoroutine(AnimateItemToChest(item));
-            collectibles.RemoveAt(i);
-
-            yield return new WaitForSeconds(tossDelay);
+                yield return new WaitForSeconds(tossDelay);
+            }
         }
+        
     }
 
     private IEnumerator AnimateItemToChest(Collectible item)
@@ -80,6 +83,9 @@ public class Inventory : MonoBehaviour
             item.transform.position = Vector3.Lerp(Vector3.Lerp(startPos, tossPos, elapsed / duration), Vector3.Lerp(tossPos, chestPos, elapsed / duration), elapsed / duration);
             yield return null;
         }
+        
+            GameOver.Instance.Success();
+            
             CoinUI.Instance.AddCoin(item.value);
             item.gameObject.SetActive(false);
     }
