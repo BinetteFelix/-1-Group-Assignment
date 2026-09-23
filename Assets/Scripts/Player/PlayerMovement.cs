@@ -103,8 +103,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Debug.Log(RB.linearVelocity.y);
         IsGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
         SpeedControl();
@@ -167,6 +165,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        Debug.Log(IsGrounded);
         MovePlayer();
         Gravity();
     }

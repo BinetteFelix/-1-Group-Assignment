@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Collectible
   - CollectibleQuest
+  - DungeonsDoor
   layers:
   - Default
   - TransparentFX
