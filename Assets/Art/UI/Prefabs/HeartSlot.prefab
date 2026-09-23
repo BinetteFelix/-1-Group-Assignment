@@ -355,6 +355,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7730101658163944245, guid: 74c1ea0cf434cec40834d61153d1cfbd, type: 3}
+      propertyPath: rotateX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730101658163944245, guid: 74c1ea0cf434cec40834d61153d1cfbd, type: 3}
+      propertyPath: rotateY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730101658163944245, guid: 74c1ea0cf434cec40834d61153d1cfbd, type: 3}
+      propertyPath: rotateZ
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730101658163944245, guid: 74c1ea0cf434cec40834d61153d1cfbd, type: 3}
       propertyPath: endScale.x
       value: 1
       objectReference: {fileID: 0}
@@ -364,6 +376,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7730101658163944245, guid: 74c1ea0cf434cec40834d61153d1cfbd, type: 3}
       propertyPath: endScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730101658163944245, guid: 74c1ea0cf434cec40834d61153d1cfbd, type: 3}
+      propertyPath: isRotating
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7730101658163944245, guid: 74c1ea0cf434cec40834d61153d1cfbd, type: 3}
@@ -384,7 +400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7730101658163944245, guid: 74c1ea0cf434cec40834d61153d1cfbd, type: 3}
       propertyPath: rotationSpeed
-      value: 5
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8747163558144235328, guid: 74c1ea0cf434cec40834d61153d1cfbd, type: 3}

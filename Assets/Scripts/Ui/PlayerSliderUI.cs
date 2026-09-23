@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class SliderUI : MonoBehaviour
+public class PlayerSliderUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI height;
     [SerializeField] private Slider playerSlider;
@@ -15,13 +15,13 @@ public class SliderUI : MonoBehaviour
 
     private void UpdateText()
     {
-        float meters = PlayerTracker.Instance.GetCurrentMeters();
+        float meters = TowerTracker.Instance.GetCurrentMeters();
         height.text = $"{meters:F0}m";
     }
 
     private void UpdateSlider()
     {
-        float normalized = PlayerTracker.Instance.GetNormalizedHeight();
+        float normalized = TowerTracker.Instance.GetPlayerNormalizedHeight();
         playerSlider.value = normalized;
     }
 }

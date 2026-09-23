@@ -21,4 +21,10 @@ public class PlayerHealth : MonoBehaviour
         HeartsUI.Instance.RemoveHeart(amount);
         invincibilityTimer = invincibilityDuration;
     }
+
+    public void Kill()
+    {
+        // Instakill that bypasses grace period
+        HeartsUI.Instance.RemoveHeart(HeartsUI.Instance.maxHP);
+    }
 }
