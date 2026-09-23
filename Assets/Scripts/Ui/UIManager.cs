@@ -84,7 +84,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         ResetTimer();
 
         GameOverPanel.SetActive(false);
-        SceneManager.LoadScene("Felix's Scene");
+        SceneManager.LoadScene(1);
         Pause();
     }
     public void MainMenuButton()
