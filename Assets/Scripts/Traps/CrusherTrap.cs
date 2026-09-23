@@ -8,9 +8,13 @@ public class CrusherTrap : MonoBehaviour
     public Transform crusherVisual;
     public CrusherHitbox crusherHitbox;
 
+    [Header("Telegraph Nudge")]
+    public float nudgeDistance = 0.2f;   // small dip before the real slam
+    public float nudgeDuration = 0.1f;   // time to dip down
+    public float nudgeHoldDuration = 0.3f; // time spent held at the nudge before slamming
+
     [Header("Slam Settings")]
     public float slamDistance = 3f;         // how far down it drops, relative to raised position
-    public float telegraphDuration = 0.5f;  // warning delay before it drops
     public float slamDuration = 0.12f;      // fast drop
     public float slamHoldDuration = 0.4f;   // stays down
     public float riseDuration = 0.6f;       // returns to raised position
@@ -43,11 +47,12 @@ public class CrusherTrap : MonoBehaviour
     private IEnumerator SlamSequence()
     {
         state = State.Telegraphing;
-        yield return new WaitForSeconds(telegraphDuration);
+        yield return MoveCrusher(0f, nudgeDistance, nudgeDuration);
+        yield return new WaitForSeconds(nudgeHoldDuration);
 
         state = State.Slamming;
         SetHitboxActive(true);
-        yield return MoveCrusher(0f, slamDistance, slamDuration);
+        yield return MoveCrusher(nudgeDistance, slamDistance, slamDuration);
 
         state = State.Holding;
         yield return new WaitForSeconds(slamHoldDuration);
