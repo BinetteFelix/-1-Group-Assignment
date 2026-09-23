@@ -1397,9 +1397,9 @@ RectTransform:
   - {fileID: 881998268}
   m_Father: {fileID: 1838481756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -270}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &555378786
@@ -2019,9 +2019,9 @@ RectTransform:
   - {fileID: 2046282698}
   m_Father: {fileID: 1838481756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -50}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &759091167
@@ -2289,6 +2289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 793199744}
   - component: {fileID: 793199745}
+  - component: {fileID: 793199746}
   m_Layer: 5
   m_Name: LavaTracker
   m_TagString: Untagged
@@ -2369,6 +2370,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &793199746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793199743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd86faeaaa5fbc4b90e96081cb439b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LavaSliderUI
+  lavaSlider: {fileID: 793199745}
 --- !u!1 &802822555
 GameObject:
   m_ObjectHideFlags: 0
@@ -2498,9 +2512,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c109f892166abe6468944d55d9cc6a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseUI
+  _singletonName: PauseMenu
+  _destroyOnLevelChange: 0
   pausePanel: {fileID: 1869561412}
-  resumeButton: {fileID: 759091167}
-  mainmenuButton: {fileID: 555378786}
+  mainMenuPanel: {fileID: 0}
+  InGameUIPanel: {fileID: 0}
+  GameOverPanel: {fileID: 0}
+  pauseAction:
+    m_Name: Pause
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 51315425-f2f7-4af9-924f-5677801340a4
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  timerText: {fileID: 0}
+  startTime: 0
 --- !u!1 &881998267
 GameObject:
   m_ObjectHideFlags: 0
@@ -3977,7 +4005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimerUI
   timerText: {fileID: 1473851636}
-  time: 2
+  time: 120
 --- !u!1 &1491748821
 GameObject:
   m_ObjectHideFlags: 0
@@ -4046,9 +4074,9 @@ RectTransform:
   - {fileID: 251950622}
   m_Father: {fileID: 1838481756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -160}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1498809429
@@ -5008,7 +5036,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1869561413
 RectTransform:
   m_ObjectHideFlags: 0
