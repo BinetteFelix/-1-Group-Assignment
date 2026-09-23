@@ -6,7 +6,7 @@ public class TestPlayerAudio : MonoBehaviour
 {
     #region variables
     private TestPlayerMovement playerMovement;                              
-    [SerializeField] private AudioSource sfxAudioSource;                    
+    [SerializeField] private AudioSource sfxAudioSource;                    // Made into SerializeField so the two Audio Sources don't get mixed up     
     [SerializeField] private AudioSource bgmAudioSource;
     public AudioClip jumpSound;                                             // Making a public field so we can add the actual audio file through Inspector.
     public AudioClip landingSound;                                          // Making a public field so we can add the actual audio file through Inspector.
@@ -32,8 +32,8 @@ public class TestPlayerAudio : MonoBehaviour
     }
 
 
-    private void FixedUpdate()
-    {
+    private void FixedUpdate()                                                                             // Fix for hard landing sound not playing at high speeds.
+    {                                                                                                      // New check of velocity in FixedUpdate() to have ground check in sync with velocity check (both are in FixedUpdate now) 
         if (!playerMovement.IsGrounded && playerMovement.VerticalVelocity < peakFallVelocity)
         {
             peakFallVelocity = playerMovement.VerticalVelocity;
