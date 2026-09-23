@@ -1945,7 +1945,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 74, y: -56}
+  m_AnchoredPosition: {x: 74, y: 5}
   m_SizeDelta: {x: 150, y: 1024}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &758688959
@@ -1998,6 +1998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47de9de6fa917f64d9094f80840914b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerTracker
+  trackers: {fileID: 758688957}
   player: {fileID: 0}
   p_startHeight: 2
   p_endHeight: 27
@@ -4027,6 +4028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TimerUI
   timerText: {fileID: 1473851636}
   time: 120
+  isRunning: 1
 --- !u!1 &1491748821
 GameObject:
   m_ObjectHideFlags: 0
