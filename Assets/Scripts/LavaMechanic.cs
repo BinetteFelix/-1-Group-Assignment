@@ -17,7 +17,6 @@ public class LavaMechanic : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        lavaSound?.Invoke(true);
         lavaStartPos = lava.transform.position;
     }
 
@@ -43,6 +42,7 @@ public class LavaMechanic : MonoBehaviour
     void LavaTrapEngaged()
     {
         isLavaTravelling = true;
+        lavaSound?.Invoke(true);
     }
 
     void OnTriggerEnter(Collider other)
@@ -52,4 +52,5 @@ public class LavaMechanic : MonoBehaviour
             HeartsUI.Instance.RemoveHeart(3);
         }
     }
+
 }

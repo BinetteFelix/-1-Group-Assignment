@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class Collectible : MonoBehaviour
     public int Value => value;
     [SerializeField] private GameObject prefab;
     [SerializeField] Collider col;
+    [SerializeField] CinemachineImpulseSource impulseSource;
     public static event Action questItemTrap;
     public static event Action<bool> OnCollectiblePickedUp;
 
@@ -35,6 +37,7 @@ public class Collectible : MonoBehaviour
                 prefab.SetActive(false);
                 Inventory.Instance.AddCollectible(this);
                 col.isTrigger = false;
+                impulseSource.GenerateImpulse();
             }
             else
             {
