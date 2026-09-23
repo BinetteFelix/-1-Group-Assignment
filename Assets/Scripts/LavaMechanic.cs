@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -7,6 +8,7 @@ public class LavaMechanic : MonoBehaviour
     [SerializeField] Vector3 lavaEndPos;
     [SerializeField] Vector3 lavaStartPos;
     [SerializeField] float lavaTravelDuration = 30;
+    public static event Action<bool> lavaSound;
     bool isLavaTravelling;
     
     float elapsedTime;
@@ -15,6 +17,7 @@ public class LavaMechanic : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        lavaSound?.Invoke(true);
         lavaStartPos = lava.transform.position;
     }
 

@@ -85,7 +85,7 @@ public class Inventory : MonoBehaviour
         }
         
             GameOver.Instance.Success();
-            
+            TimerUI.Instance.StopTimer();
             CoinUI.Instance.AddCoin(item.value);
             item.gameObject.SetActive(false);
     }
