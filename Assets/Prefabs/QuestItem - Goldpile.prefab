@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Collectible
   value: 50
   prefab: {fileID: 305036490656375173}
-  rb: {fileID: 0}
+  col: {fileID: -9019039467844433768}
 --- !u!135 &-9019039467844433768
 SphereCollider:
   m_ObjectHideFlags: 0
