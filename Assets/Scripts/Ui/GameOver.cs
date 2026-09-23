@@ -34,6 +34,7 @@ public class GameOver : MonoBehaviour
     public void Success()
     {
 
+        TimerUI.Instance.StopTimer();
         youWin.SetActive(true);
         UpdateScoreDisplay();
 
