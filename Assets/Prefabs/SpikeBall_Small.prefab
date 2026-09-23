@@ -148,5 +148,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   lifeTime: 5
-  knockbackForce: 16
+  knockbackForce: 30
   knockbackLockoutDuration: 0.4
