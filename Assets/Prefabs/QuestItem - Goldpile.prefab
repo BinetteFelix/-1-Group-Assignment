@@ -105,7 +105,7 @@ MonoBehaviour:
   value: 50
   prefab: {fileID: 305036490656375173}
   col: {fileID: -9019039467844433768}
-  impulseSource: {fileID: 0}
+  impulseForce: 5
 --- !u!135 &-9019039467844433768
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -171,11 +171,56 @@ MonoBehaviour:
     ImpulseShape: 4
     CustomImpulseShape:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -0.002380371
+        inSlope: 3.1857924
+        outSlope: 3.1857924
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.045820996
+        value: 0.14359581
+        inSlope: 1.851671
+        outSlope: 1.851671
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.14613682
+        value: 0.19551423
+        inSlope: 0.11027093
+        outSlope: 0.11027093
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5348052
+        value: 0.08007671
+        inSlope: -0.23201334
+        outSlope: -0.23201334
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.002380371
+        inSlope: -0.16701892
+        outSlope: -0.16701892
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    ImpulseDuration: 0.8
+    ImpulseDuration: 0.77
     ImpulseType: 0
     DissipationRate: 0.25
     RawSignal: {fileID: 0}
@@ -206,4 +251,4 @@ MonoBehaviour:
     DissipationMode: 2
     DissipationDistance: 100
     PropagationSpeed: 343
-  DefaultVelocity: {x: 0.21, y: -0.43, z: 0.26}
+  DefaultVelocity: {x: 4.49, y: 4.73, z: 0.1}

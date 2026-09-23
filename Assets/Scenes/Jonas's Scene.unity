@@ -5421,7 +5421,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 0}
+    TrackingTarget: {fileID: 1427512980}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -5453,9 +5453,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1389415259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e1e6f18ca247ee43bfd606627b0dd13, type: 3}
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseListener
+  ApplyAfter: 2
+  ChannelMask: 1
+  Gain: 1
+  Use2DDistance: 0
+  UseCameraSpace: 1
+  SignalCombinationMode: 0
+  ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1397955401
 GameObject:
   m_ObjectHideFlags: 0
@@ -6477,8 +6489,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1638830448}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.005188852, z: -0, w: 0.9999865}
-  m_LocalPosition: {x: 0.23582661, y: 1.1823062, z: 0.20407204}
+  m_LocalRotation: {x: 0, y: 0.005188867, z: 0, w: 0.9999866}
+  m_LocalPosition: {x: 0.23582661, y: 1.1823064, z: 0.20407216}
   m_LocalScale: {x: 0.07082665, y: 0.07082664, z: 0.07082665}
   m_ConstrainProportionsScale: 0
   m_Children: []

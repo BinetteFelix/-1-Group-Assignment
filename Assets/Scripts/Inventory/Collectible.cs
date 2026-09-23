@@ -10,9 +10,15 @@ public class Collectible : MonoBehaviour
     public int Value => value;
     [SerializeField] private GameObject prefab;
     [SerializeField] Collider col;
-    [SerializeField] CinemachineImpulseSource impulseSource;
+    [SerializeField] float impulseForce;
+    CinemachineImpulseSource impulseSource;
     public static event Action questItemTrap;
     public static event Action<bool> OnCollectiblePickedUp;
+
+    void Awake()
+    {
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+    }
 
     public void OnTriggerEnter(Collider other)
     {
@@ -31,13 +37,13 @@ public class Collectible : MonoBehaviour
             }
             else if(prefab.name.Contains("Quest"))
             {
-                questItemTrap?.Invoke();
+                Invoke(nameof(QuestTrapActivated), 1f);
                 TowerTracker.Instance.showTracker();
                 OnCollectiblePickedUp?.Invoke(false);
                 prefab.SetActive(false);
                 Inventory.Instance.AddCollectible(this);
                 col.isTrigger = false;
-                impulseSource.GenerateImpulse();
+                impulseSource.GenerateImpulseWithForce(impulseForce);
             }
             else
             {
@@ -48,5 +54,10 @@ public class Collectible : MonoBehaviour
             }
             
         }
+    }
+
+    void QuestTrapActivated()
+    {
+        questItemTrap?.Invoke();
     }
 }

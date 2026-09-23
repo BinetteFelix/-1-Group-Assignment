@@ -30,13 +30,13 @@ public class Container : MonoBehaviour
         else if (other.CompareTag("Player"))
         {
             animator.SetBool("open", true);
-            VictoryScene();
-            Inventory.Instance.TriggerUnload();
+            playerCamera.gameObject.SetActive(false);
+            Invoke(nameof(VictoryScene), 2f);
         }
     }
 
     void VictoryScene()
     {
-        playerCamera.gameObject.SetActive(false);
+        Inventory.Instance.TriggerUnload();
     }
 }

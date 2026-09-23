@@ -8,6 +8,7 @@ public class LavaMechanic : MonoBehaviour
     [SerializeField] Vector3 lavaEndPos;
     [SerializeField] Vector3 lavaStartPos;
     [SerializeField] float lavaTravelDuration = 30;
+
     public static event Action<bool> lavaSound;
     bool isLavaTravelling;
     
