@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerSFX : MonoBehaviour
 {
 
-    [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private PlayerAudio audioPlayer;
+    public PlayerMovement playerMovement;
+    public PlayerAudio audioPlayer;
     public AudioClip jumpSound;                                             // Making a public field so we can add the actual audio file through Inspector.
     public AudioClip landingSound;                                          // Making a public field so we can add the actual audio file through Inspector.
     public AudioClip hardLandingSound;                                      // Public field for another landing sound (when you land with higher downward velocity). 
@@ -20,12 +21,14 @@ public class PlayerSFX : MonoBehaviour
     private int lastGruntIndex = -1;                                        // Same idea as the starting value of index for footstep sounds.
     private float peakFallVelocity;
 
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if (SceneManager.GetSceneByBuildIndex(1).isLoaded)
+        {
+            playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+            audioPlayer = playerMovement.gameObject.GetComponent<PlayerAudio>();
+        }
     }
     private void FixedUpdate()                                                                             // Fix for hard landing sound not playing at high speeds.
     {                                                                                                      // New check of velocity in FixedUpdate() to have ground check in sync with velocity check (both are in FixedUpdate now) 
@@ -33,6 +36,7 @@ public class PlayerSFX : MonoBehaviour
         {
             peakFallVelocity = playerMovement.VerticalVelocity;
         }
+        
     }
 
     // Update is called once per frame
