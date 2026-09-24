@@ -31,6 +31,7 @@ public class Container : MonoBehaviour
         {
             animator.SetBool("open", true);
             playerCamera.gameObject.SetActive(false);
+            TimerUI.Instance.StopTimer();
             Invoke(nameof(VictoryScene), 2f);
         }
     }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1308185334007163752
+--- !u!1001 &8138142635312291850
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -50,35 +50,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6954758372675618198, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
       propertyPath: m_Name
-      value: Coin - Small Collectible Variant
+      value: Coin - Small Collectible Variant (3)
       objectReference: {fileID: 0}
     - target: {fileID: 6954758372675618198, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
       propertyPath: m_TagString
       value: Collectible
       objectReference: {fileID: 0}
+    - target: {fileID: 6954758372675618198, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7768589822984281900, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2761
+      value: 1.0499256
       objectReference: {fileID: 0}
     - target: {fileID: 7768589822984281900, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.2761
+      value: 1.0499256
       objectReference: {fileID: 0}
     - target: {fileID: 7768589822984281900, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.2761
+      value: 1.0499256
       objectReference: {fileID: 0}
     - target: {fileID: 7768589822984281900, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.08
+      value: -173.19438
       objectReference: {fileID: 0}
     - target: {fileID: 7768589822984281900, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.19
+      value: 2.2602694
       objectReference: {fileID: 0}
     - target: {fileID: 7768589822984281900, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.57
+      value: -11.19219
       objectReference: {fileID: 0}
     - target: {fileID: 7768589822984281900, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
       propertyPath: m_LocalRotation.w
@@ -108,45 +112,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8900449407723283523, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ffb56531ed0df8645aa7b567f4fd677c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6954758372675618198, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1042940246638357796}
+      addedObject: {fileID: 9111872155756193377}
     - targetCorrespondingSourceObject: {fileID: 6954758372675618198, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -5395167232370239099}
+      addedObject: {fileID: 2585632849333364901}
   m_SourcePrefab: {fileID: 100100000, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
---- !u!1 &8260683932591091454 stripped
+--- !u!1 &1185641320094442908 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6954758372675618198, guid: 6a301d09debaf1e4a8d3e2657cc44a96, type: 3}
-  m_PrefabInstance: {fileID: 1308185334007163752}
+  m_PrefabInstance: {fileID: 8138142635312291850}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1042940246638357796
+--- !u!114 &9111872155756193377
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8260683932591091454}
+  m_GameObject: {fileID: 1185641320094442908}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bc7c503e0c45c54da121cfb3b621169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectible
   value: 1
-  prefab: {fileID: 8260683932591091454}
-  rb: {fileID: 0}
-  col: {fileID: 0}
---- !u!65 &-5395167232370239099
+  prefab: {fileID: 1185641320094442908}
+  col: {fileID: 2585632849333364901}
+  impulseForce: 0
+--- !u!65 &2585632849333364901
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8260683932591091454}
+  m_GameObject: {fileID: 1185641320094442908}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

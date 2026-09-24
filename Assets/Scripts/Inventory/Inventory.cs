@@ -57,7 +57,7 @@ public class Inventory : MonoBehaviour
     {
         if(collectibles.Count > 0)
         {
-            for (int i = collectibles.Count - 1; i >= 0; i--)
+            for (int i = collectibles.Count -1; i >= 0; i--)
             {
                 Collectible item = collectibles[i];
                 item.transform.position = Player.Instance.transform.position + offset;
@@ -83,10 +83,9 @@ public class Inventory : MonoBehaviour
             item.transform.position = Vector3.Lerp(Vector3.Lerp(startPos, tossPos, elapsed / duration), Vector3.Lerp(tossPos, chestPos, elapsed / duration), elapsed / duration);
             yield return null;
         }
-        
-            GameOver.Instance.Success();
-            TimerUI.Instance.StopTimer();
+
             CoinUI.Instance.AddCoin(item.value);
+            GameOver.Instance.Success();
             item.gameObject.SetActive(false);
     }
 }
