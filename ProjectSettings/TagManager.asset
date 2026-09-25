@@ -9,6 +9,7 @@ TagManager:
   - Collectible
   - CollectibleQuest
   - DungeonsDoor
+  - Lava
   layers:
   - Default
   - TransparentFX
