@@ -1713,6 +1713,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 281777152}
+  - component: {fileID: 281777153}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -1738,6 +1739,44 @@ Transform:
   - {fileID: 1315929933}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &281777153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281777151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6195d2f898b0146409eed7fdf9d65217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIManagertest
+  _singletonName: UI
+  _destroyOnLevelChange: 0
+  mainMenuPanel: {fileID: 775333061}
+  inGameUIPanel: {fileID: 1238163169}
+  pausePanel: {fileID: 1869561412}
+  gameOverPanel: {fileID: 1078080162}
+  youDiedPanel: {fileID: 1685674839}
+  youWinPanel: {fileID: 98086159}
+  optionsPanel: {fileID: 1194881361}
+  creditsPanel: {fileID: 218302997}
+  pauseAction:
+    m_Name: Pause
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: ecac5e39-aff2-4d7d-a0ce-ed7a934f5446
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  timerText: {fileID: 1473851636}
+  startTime: 120
+  trackersPanel: {fileID: 758688957}
+  playerSlider: {fileID: 463701386}
+  lavaSlider: {fileID: 793199745}
+  heightText: {fileID: 442722084}
+  scoreText: {fileID: 653359478}
 --- !u!1 &298398172
 GameObject:
   m_ObjectHideFlags: 0
