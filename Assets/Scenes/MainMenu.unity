@@ -3641,9 +3641,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30847c3bbffa06349baa12485dfc8348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOver
-  youDied: {fileID: 163201603}
-  youWin: {fileID: 442218112}
-  scoreText: {fileID: 1904243172}
 --- !u!1 &646025593
 GameObject:
   m_ObjectHideFlags: 0
@@ -3796,7 +3793,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &647387790
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9462,7 +9459,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1936882359}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: set_mute
         m_Mode: 0
@@ -10430,7 +10427,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1936882359}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: set_volume
         m_Mode: 0
