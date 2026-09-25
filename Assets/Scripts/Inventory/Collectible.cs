@@ -38,7 +38,6 @@ public class Collectible : MonoBehaviour
             else if(prefab.name.Contains("Quest"))
             {
                 Invoke(nameof(QuestTrapActivated), 1f);
-                TowerTracker.Instance.showTracker();
                 OnCollectiblePickedUp?.Invoke(false);
                 prefab.SetActive(false);
                 Inventory.Instance.AddCollectible(this);

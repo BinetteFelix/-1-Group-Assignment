@@ -135,7 +135,6 @@ public class UIManager : SingletonBehaviour<UIManager>
         youDiedPanel.SetActive(false);
         youWinPanel.SetActive(false);
         InGameUIPanel.SetActive(true);
-        trackersPanel.SetActive(false);
 
         pauseAction.Enable();
         Cursor.lockState = CursorLockMode.Locked;
@@ -155,6 +154,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         pauseAction.Enable();
         Cursor.lockState = CursorLockMode.Locked;
         SceneManager.LoadScene(1);
+        TowerTracker.Instance.showTracker();
     }
 
     private void ResetGameState()
@@ -226,15 +226,6 @@ public class UIManager : SingletonBehaviour<UIManager>
     public void WindowsButton()
     {
         Screen.fullScreen = !Screen.fullScreen;
-    }
-
-    public void CreditsButton()
-    {
-        creditsPanel.SetActive(true);
-    }
-    public void CloseCreditsButton()
-    {
-        creditsPanel.SetActive(false);
     }
     public void ExitButton()
     {
