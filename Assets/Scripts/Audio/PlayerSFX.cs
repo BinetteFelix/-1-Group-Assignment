@@ -49,7 +49,7 @@ public class PlayerSFX : MonoBehaviour
     void Update()
     {
         float timeSinceLastLanding = Time.time - lastLandingSoundTime;
-        if (!wasGroundedLastFrame && playerMovement.IsGrounded && timeSinceLastLanding >= landingSoundCooldown)                        /* The variable wasGroundedLastFrame is by default a false since I didn't explicitly say if it was false or true when creating it. */
+        if (!wasGroundedLastFrame && playerMovement.IsGrounded && timeSinceLastLanding >= landingSoundCooldown && playerMovement.state != MovementState.sliding)                        /* The variable wasGroundedLastFrame is by default a false since I didn't explicitly say if it was false or true when creating it. */
         {                                                                                                               /* We check if it stays false and also if the isGrounded variable turns to true. As soon as it matches up it plays the sound in that frame. */
                                                                                                                        /* Added a cooldown for landing sound so it does trigger multiple times when ground check flickers (raycasting being unreliable). */
             if (peakFallVelocity < hardLandingThreshold)                                                             /* Wanted to add a "harder landing sound" when landing from a specific height (or specific velocity).*/
