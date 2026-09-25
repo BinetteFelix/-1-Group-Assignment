@@ -82,7 +82,7 @@ public class UIManager : SingletonBehaviour<UIManager>
             UpdateTimerText();
         }
 
-
+        Debug.Log(coinUI.GetCoinCount());
         #endregion
 
     }
@@ -173,7 +173,6 @@ public class UIManager : SingletonBehaviour<UIManager>
     #endregion
 
     #region FAIL METHODS
-    
     private void TriggerTimeUp()
     {
         isTimerRunning = false;

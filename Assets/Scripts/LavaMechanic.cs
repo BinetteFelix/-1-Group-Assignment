@@ -18,7 +18,9 @@ public class LavaMechanic : MonoBehaviour
     void Start()
     {
         lavaStartPos = lava.transform.position;
-        TowerTracker.Instance.SetLavaTransform(transform);
+
+        if (TowerTracker.Instance.gameObject != null)
+            TowerTracker.Instance.SetLavaTransform(transform);
     }
 
     // Update is called once per frame

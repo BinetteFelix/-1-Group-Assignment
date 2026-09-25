@@ -1142,7 +1142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &163201604
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2861,7 +2861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &442218113
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3069,8 +3069,8 @@ MonoBehaviour:
   pausePanel: {fileID: 1628144327}
   mainMenuPanel: {fileID: 1204241814}
   InGameUIPanel: {fileID: 491650808}
-  youDiedPanel: {fileID: 622001049}
-  youWinPanel: {fileID: 1747371271}
+  youDiedPanel: {fileID: 163201603}
+  youWinPanel: {fileID: 442218112}
   optionsPanel: {fileID: 793406225}
   creditsPanel: {fileID: 45124397}
   pauseAction:
@@ -3091,12 +3091,12 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   timerText: {fileID: 2038290507}
-  startTime: 50
+  startTime: 120
   trackersPanel: {fileID: 1184449783}
   playerSlider: {fileID: 1224409373}
   lavaSlider: {fileID: 1638429569}
   heightText: {fileID: 715000745}
-  scoreText: {fileID: 769997730}
+  scoreText: {fileID: 1904243172}
   heartsUI: {fileID: 326216802}
   coinUI: {fileID: 769997729}
 --- !u!1 &465905206
@@ -3608,6 +3608,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051548a087dd4ba41994fc6cc1121d5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectiblesAudio
+  _singletonName: Collectible SFX
+  _destroyOnLevelChange: 0
   worldInteractiveAudioSource: {fileID: 0}
   heartPickupSound:
   - {fileID: 8300000, guid: 9c2396ad31ddb4ef2a8f69f81891a8bb, type: 3}
@@ -3841,7 +3843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &622001050
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4731,7 +4733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f4df211419ccc43a815550b4098027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinUI
-  coinText: {fileID: 769997730}
+  finalScoreText: {fileID: 1904243172}
 --- !u!114 &769997730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8792,7 +8794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1747371272
 RectTransform:
   m_ObjectHideFlags: 0

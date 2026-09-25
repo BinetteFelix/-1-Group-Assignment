@@ -1,8 +1,6 @@
 using System;
-using System.Reflection.Metadata.Ecma335;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class TimerUI : MonoBehaviour
 {

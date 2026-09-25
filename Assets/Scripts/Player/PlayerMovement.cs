@@ -79,7 +79,6 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         TowerTracker.Instance.SetPlayerTransform(transform);
-
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -322,8 +321,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private void SetAudioManagerReferences()
     {
-        Debug.Log("Tried Set References");
-
         PlayerSFX.Instance.playerMovement = this;
         PlayerSFX.Instance.audioPlayer = audioPlayer;
         PlayerSFX.Instance.slidingAudioSource = slidingAudioSource;

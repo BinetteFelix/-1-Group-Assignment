@@ -274,7 +274,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: MovingPlatform(1) (1) Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2472521940303261452, guid: de12b6cd08b242d479dd161b8d3f9887, type: 3}
     m_RemovedGameObjects:
     - {fileID: -1389965821012828786, guid: de12b6cd08b242d479dd161b8d3f9887, type: 3}
     - {fileID: -6919640698967066500, guid: de12b6cd08b242d479dd161b8d3f9887, type: 3}

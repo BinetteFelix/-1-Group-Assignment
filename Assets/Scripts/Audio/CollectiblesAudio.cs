@@ -24,8 +24,6 @@ public class CollectiblesAudio : SingletonBehaviour<CollectiblesAudio>
     }
     void CollectiblePickupHandler(bool heartPickupCheck)
     {
-        
-        
         if (heartPickupCheck)
         {
             int randomHeartIndex = Random.Range(0, heartPickupSound.Length);

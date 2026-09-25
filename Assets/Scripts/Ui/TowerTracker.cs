@@ -37,10 +37,8 @@ public class TowerTracker : SingletonBehaviour<TowerTracker>
         if (player != null)
         {
             UpdatePlayerHeight();
-            UpdateLavaHeight();
 
             SetPlayerSliderValue();
-            SetLavaSliderValue();
 
             SetCurrentHeight();
         }

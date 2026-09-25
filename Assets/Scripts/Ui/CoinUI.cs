@@ -1,11 +1,10 @@
-using System;
 using TMPro;
 using UnityEngine;
 
 public class CoinUI : MonoBehaviour
 {
     public static CoinUI Instance { get; private set; } //TODO: for the pickup coin
-    [SerializeField] private TextMeshProUGUI coinText;
+    [SerializeField] private TextMeshProUGUI finalScoreText;
 
     private int coinCount = 0;
 
@@ -17,19 +16,17 @@ public class CoinUI : MonoBehaviour
     {
         UpdateDisplay();
     }
-
-    public void AddCoin(int amount = 1) 
+    public void AddCoin(int amount) 
     {
         coinCount += amount;
         UpdateDisplay();
     }
-
     private void UpdateDisplay()
     {
-        if (coinText == null) return;
-        coinText.text = coinCount.ToString();
-    }
+        if (finalScoreText == null) return;
+        finalScoreText.text = "Score: " + coinCount.ToString();
 
+    }
     public int GetCoinCount() => coinCount; //TODO: for the main menu recordsboard (maybe
 
     public void ResetCoins() //TODO: for new round 
@@ -37,5 +34,4 @@ public class CoinUI : MonoBehaviour
         coinCount = 0;
         UpdateDisplay();
     }
-
 }

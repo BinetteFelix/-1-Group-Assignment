@@ -5,7 +5,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public static Inventory Instance;
-    [SerializeField] List<Collectible> collectibles = new List<Collectible>();
+    [SerializeField] public List<Collectible> collectibles = new List<Collectible>();
 
     [SerializeField] private Vector3 offset = new Vector3(0, 20f, 0f);
 
@@ -18,6 +18,8 @@ public class Inventory : MonoBehaviour
     
     float moveDuration;
 
+    PlayerMovement player;
+
     private void Awake()
     {
         Instance = this;
@@ -27,17 +29,12 @@ public class Inventory : MonoBehaviour
     {
         tossPos = TossWP.position;
         chestPos = ChestWP.position;
-    }
 
-    void Update()
-    {
-        
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
-
     public void AddCollectible(Collectible item)
     {
         collectibles.Add(item);
-        Debug.Log("Collectible added to inventory: " + item.name);
     }
     public void TriggerUnload()
     {
@@ -50,23 +47,19 @@ public class Inventory : MonoBehaviour
 
     private IEnumerator UnloadCollectiblesRoutine()
     {
-        if(collectibles.Count > 0)
+        for (int i = collectibles.Count - 1; i >= 0; i--)
         {
-            for (int i = collectibles.Count -1 ; i >= 0; i--)
-            {
-                Collectible item = collectibles[i];
-                item.transform.position = Player.Instance.transform.position + offset;
-                item.gameObject.SetActive(true);
+            Collectible item = collectibles[i];
+            item.transform.position = player.transform.position + offset;
+            item.gameObject.SetActive(true);
 
-                StartCoroutine(AnimateItemToChest(item));
-                collectibles.RemoveAt(i);
+            StartCoroutine(AnimateItemToChest(item));
+            collectibles.RemoveAt(i);
 
-                yield return new WaitForSeconds(tossDelay);
-            }
+            yield return new WaitForSeconds(tossDelay);
         }
-        
-    }
 
+    }
     private IEnumerator AnimateItemToChest(Collectible item)
     {
         Vector3 startPos = item.transform.position;
@@ -78,9 +71,8 @@ public class Inventory : MonoBehaviour
             item.transform.position = Vector3.Lerp(Vector3.Lerp(startPos, tossPos, elapsed / duration), Vector3.Lerp(tossPos, chestPos, elapsed / duration), elapsed / duration);
             yield return null;
         }
-
-            CoinUI.Instance.AddCoin(item.value);
-            GameOver.Instance.Success();
-            item.gameObject.SetActive(false);
+        CoinUI.Instance.AddCoin(item.value);
+        UIManager.Instance.Success();
+        item.gameObject.SetActive(false);
     }
 }

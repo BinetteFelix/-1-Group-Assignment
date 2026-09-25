@@ -44,7 +44,6 @@ public class PlayerSFX : SingletonBehaviour<PlayerSFX>
                 peakFallVelocity = playerMovement.VerticalVelocity;
             }
         }
-        
     }
 
     // Update is called once per frame
@@ -68,8 +67,7 @@ public class PlayerSFX : SingletonBehaviour<PlayerSFX>
                 peakFallVelocity = 0;
 
             }
-            wasGroundedLastFrame = playerMovement.IsGrounded;                                                                              // We change the value of wasGroundedLastFrame to the same value as the player isGrounded check to not play the landing sound outside of cases where the player isn't landing from a jump.
-
+            wasGroundedLastFrame = playerMovement.IsGrounded;                                                                              // We change the value of wasGroundedLastFrame to the same value as the player isGrounded check to not play the landing sound outside of cases where the player isn't landing from a jum
 
             float timeSinceLastFootstep = Time.time - lastFootstepSound;
             if (playerMovement.state == MovementState.sprinting)
@@ -133,7 +131,6 @@ public class PlayerSFX : SingletonBehaviour<PlayerSFX>
     {
         PlayerMovement.OnPlayerJumped -= PlayJumpAudio;    
     }
-
     public override void Instantiate()
     {
     }

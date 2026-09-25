@@ -13,24 +13,15 @@ public class Container : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetBool("open", false);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))
         {
             return;
         }
-        else if (other.CompareTag("Player"))
+        else if (other.CompareTag("Player") && Inventory.Instance.collectibles.Count > 0)
         {
             animator.SetBool("open", true);
-            playerCamera.gameObject.SetActive(false);
-            TimerUI.Instance.StopTimer();
             Invoke(nameof(VictoryScene), 2f);
         }
     }
