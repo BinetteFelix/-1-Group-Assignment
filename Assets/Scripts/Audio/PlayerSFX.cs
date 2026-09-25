@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static PlayerMovement;
 
 public class PlayerSFX : MonoBehaviour
 {
 
+    [SerializeField] private AudioSource slidingAudioSource;
     public PlayerMovement playerMovement;
     public PlayerAudio audioPlayer;
     public AudioClip jumpSound;                                             // Making a public field so we can add the actual audio file through Inspector.
@@ -11,15 +13,19 @@ public class PlayerSFX : MonoBehaviour
     public AudioClip hardLandingSound;                                      // Public field for another landing sound (when you land with higher downward velocity). 
     public AudioClip[] footstepSounds;                                      // Public field for footstep sounds. Made it into an array so that we can have different footstep sounds playing in randomized order (makes it sound less flat and boring).
     public AudioClip[] gruntSounds;                                         // Public field for grunt sounds. Made as array to play random grunt sound out of three on jump.
+    public AudioClip[] armorWalkSound;
     private bool wasGroundedLastFrame;                                      // Making a bool variable that will check for us if the player was grounded last frame or not. We need to know this so we can identify when the player lands after a jump.
     private float lastLandingSoundTime;                                     // Variable for last time a landing sound played so we can have a cooldown check on it.
     private float landingSoundCooldown = 0.2f;                              // The actual cooldown time on the landing time.
     public float hardLandingThreshold = -15f;                               // The value of how much velocity the player must have at the very least to play the hard landing sound.
-    private float footstepSoundCd = 0.45f;                                  // Cooldown on when next footstep sound can play so it doesn't play continously without no pause in between actual footsteps. More realistic.
+    private float footstepSoundCd = 0.6f;                                  // Cooldown on when next footstep sound can play so it doesn't play continously without no pause in between actual footsteps. More realistic.
     private float lastFootstepSound;                                        // Variable to check when the last footstep sound was played so that we can actually use the cooldown we created for the footsteps.
     private int lastFootstepIndex = -1;                                     // Variable for storing the last index that was used that plays one of the audio files for footstep sound. Starts as -1 so that we don't accidentally play the index with value 0 twice in the beginning.
     private int lastGruntIndex = -1;                                        // Same idea as the starting value of index for footstep sounds.
     private float peakFallVelocity;
+    private bool wasSlidingLastFrame;
+    private int currentArmorIndex = -1;
+    private int lastArmorIndex = -1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -60,20 +66,45 @@ public class PlayerSFX : MonoBehaviour
         }
         wasGroundedLastFrame = playerMovement.IsGrounded;                                                                              // We change the value of wasGroundedLastFrame to the same value as the player isGrounded check to not play the landing sound outside of cases where the player isn't landing from a jump.
 
+
         float timeSinceLastFootstep = Time.time - lastFootstepSound;
-        if (playerMovement.IsMoving && playerMovement.IsGrounded && timeSinceLastFootstep >= footstepSoundCd)  // Checks if player is moving, is grounded and if enough time has elapsed since last time the footstep sound was played (so it doesn't spam the sound).
+        if (playerMovement.state == MovementState.sprinting)
+        {
+            footstepSoundCd = 0.45f;
+        }
+        else if (playerMovement.state == MovementState.walking)
+        {
+            footstepSoundCd = 0.6f;
+        }
+        if (playerMovement.IsMoving && playerMovement.IsGrounded && timeSinceLastFootstep >= Random.Range(footstepSoundCd-0.02f, footstepSoundCd+0.02f))  // Checks if player is moving, is grounded and if enough time has elapsed since last time the footstep sound was played (so it doesn't spam the sound).
         {
             int randomIndex = Random.Range(0, footstepSounds.Length);                                                   // Made a dynamic array that can check how many indeces we have within the array dependent on how many audio files we input through the Inspector. Stores the index value in randomIndex.
             while (randomIndex == lastFootstepIndex)                                                                    // Created a while loop so we can check which sound out of the 4 elements in the array was played last. Doing this to we don't get any repeat sounds.
             {
                 randomIndex = Random.Range(0, footstepSounds.Length);                                                   // If the statement in the while loop stays true than we continue looking for another random index until it's not the same.
             }
+            int randomArmorIndex = Random.Range(0, armorWalkSound.Length);
+            while (randomArmorIndex == lastArmorIndex)
+            {
+                randomArmorIndex = Random.Range(0, armorWalkSound.Length);
+            }
 
             audioPlayer.PlaySFXAudio(footstepSounds[randomIndex]);                                                      // Plays the audio file of the random index that was selected.
+            audioPlayer.PlaySFXAudio(armorWalkSound[randomArmorIndex]);
+            
             lastFootstepSound = Time.time;                                                                              // Resets the timer for the last played footstep variable. Basically makes out cooldown always valid since it now counts from when last the sound was played and not from 0 like in the beginning.
             lastFootstepIndex = randomIndex;                                                                            // Setting the value of the randomIndex (that just played) to the last played index variable. Next time it checks for repeat sounds it will know which one was played last
+            lastArmorIndex = randomArmorIndex;
         }
-        
+        if(!wasSlidingLastFrame && playerMovement.state == MovementState.sliding)
+        {
+            slidingAudioSource.Play();
+        }
+        if(wasSlidingLastFrame && playerMovement.state != MovementState.sliding)
+        {
+            slidingAudioSource.Stop();
+        }
+        wasSlidingLastFrame = playerMovement.state == MovementState.sliding;
     }
     private void PlayJumpAudio()
     {
