@@ -81,10 +81,7 @@ public class UIManager : SingletonBehaviour<UIManager>
             }
             UpdateTimerText();
         }
-
-        Debug.Log(coinUI.GetCoinCount());
         #endregion
-
     }
 
     #region GAME STATE
@@ -155,7 +152,6 @@ public class UIManager : SingletonBehaviour<UIManager>
         SceneManager.LoadScene(1);
         TowerTracker.Instance.showTracker();
     }
-
     private void ResetGameState()
     {
         IsPaused = false;
@@ -167,9 +163,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         youWinPanel.SetActive(false);
 
         heartsUI.ResetHeart();
-        coinUI.ResetCoins();
     }
-
     #endregion
 
     #region FAIL METHODS

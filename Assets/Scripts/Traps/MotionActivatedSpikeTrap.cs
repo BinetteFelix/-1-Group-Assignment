@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Audio;
 
 [RequireComponent(typeof(Collider))]
 public class MotionActivatedSpikeTrap : MonoBehaviour
