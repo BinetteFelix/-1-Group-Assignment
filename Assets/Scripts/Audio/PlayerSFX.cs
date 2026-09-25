@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utility;
 using static PlayerMovement;
 
-public class PlayerSFX : MonoBehaviour
+public class PlayerSFX : SingletonBehaviour<PlayerSFX>
 {
-
-    [SerializeField] private AudioSource slidingAudioSource;
+    public AudioSource slidingAudioSource;
     public PlayerMovement playerMovement;
     public PlayerAudio audioPlayer;
     public AudioClip jumpSound;                                             // Making a public field so we can add the actual audio file through Inspector.
@@ -26,7 +26,6 @@ public class PlayerSFX : MonoBehaviour
     private bool wasSlidingLastFrame;
     private int currentArmorIndex = -1;
     private int lastArmorIndex = -1;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -38,9 +37,12 @@ public class PlayerSFX : MonoBehaviour
     }
     private void FixedUpdate()                                                                             // Fix for hard landing sound not playing at high speeds.
     {                                                                                                      // New check of velocity in FixedUpdate() to have ground check in sync with velocity check (both are in FixedUpdate now) 
-        if (!playerMovement.IsGrounded && playerMovement.VerticalVelocity < peakFallVelocity)
+        if (playerMovement != null)
         {
-            peakFallVelocity = playerMovement.VerticalVelocity;
+            if (!playerMovement.IsGrounded && playerMovement.VerticalVelocity < peakFallVelocity)
+            {
+                peakFallVelocity = playerMovement.VerticalVelocity;
+            }
         }
         
     }
@@ -48,63 +50,66 @@ public class PlayerSFX : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float timeSinceLastLanding = Time.time - lastLandingSoundTime;
-        if (!wasGroundedLastFrame && playerMovement.IsGrounded && timeSinceLastLanding >= landingSoundCooldown && playerMovement.state != MovementState.sliding)                        /* The variable wasGroundedLastFrame is by default a false since I didn't explicitly say if it was false or true when creating it. */
-        {                                                                                                               /* We check if it stays false and also if the isGrounded variable turns to true. As soon as it matches up it plays the sound in that frame. */
-                                                                                                                       /* Added a cooldown for landing sound so it does trigger multiple times when ground check flickers (raycasting being unreliable). */
-            if (peakFallVelocity < hardLandingThreshold)                                                             /* Wanted to add a "harder landing sound" when landing from a specific height (or specific velocity).*/
-            {                                                                                                           /* Checks how fast the player is going vertically and plays a harder land sound if player is falling from a higher place.*/
-                audioPlayer.PlaySFXAudio(hardLandingSound);                                                                 // Plays hard landing sound if conditions are met.
+        if (playerMovement != null)
+        {
+            float timeSinceLastLanding = Time.time - lastLandingSoundTime;
+            if (!wasGroundedLastFrame && playerMovement.IsGrounded && timeSinceLastLanding >= landingSoundCooldown && playerMovement.state != MovementState.sliding)                        /* The variable wasGroundedLastFrame is by default a false since I didn't explicitly say if it was false or true when creating it. */
+            {                                                                                                               /* We check if it stays false and also if the isGrounded variable turns to true. As soon as it matches up it plays the sound in that frame. */
+                /* Added a cooldown for landing sound so it does trigger multiple times when ground check flickers (raycasting being unreliable). */
+                if (peakFallVelocity < hardLandingThreshold)                                                             /* Wanted to add a "harder landing sound" when landing from a specific height (or specific velocity).*/
+                {                                                                                                           /* Checks how fast the player is going vertically and plays a harder land sound if player is falling from a higher place.*/
+                    audioPlayer.PlaySFXAudio(hardLandingSound);                                                                 // Plays hard landing sound if conditions are met.
+                }
+                else
+                {
+                    audioPlayer.PlaySFXAudio(landingSound);                                                                 // We call on PlayOneShot to play the sound once using the Audio Source reference and playing the audio file that is in the Audio Clip field.
+                }
+                lastLandingSoundTime = Time.time;                                                                           // Change the variable lastLandingSoundTime to equal the current time that has passed so we can correctly check how much time has passed since the last time the landing sound played.
+                peakFallVelocity = 0;
+
             }
-            else
+            wasGroundedLastFrame = playerMovement.IsGrounded;                                                                              // We change the value of wasGroundedLastFrame to the same value as the player isGrounded check to not play the landing sound outside of cases where the player isn't landing from a jump.
+
+
+            float timeSinceLastFootstep = Time.time - lastFootstepSound;
+            if (playerMovement.state == MovementState.sprinting)
             {
-                audioPlayer.PlaySFXAudio(landingSound);                                                                 // We call on PlayOneShot to play the sound once using the Audio Source reference and playing the audio file that is in the Audio Clip field.
+                footstepSoundCd = 0.45f;
             }
-            lastLandingSoundTime = Time.time;                                                                           // Change the variable lastLandingSoundTime to equal the current time that has passed so we can correctly check how much time has passed since the last time the landing sound played.
-            peakFallVelocity = 0;
-
-        }
-        wasGroundedLastFrame = playerMovement.IsGrounded;                                                                              // We change the value of wasGroundedLastFrame to the same value as the player isGrounded check to not play the landing sound outside of cases where the player isn't landing from a jump.
-
-
-        float timeSinceLastFootstep = Time.time - lastFootstepSound;
-        if (playerMovement.state == MovementState.sprinting)
-        {
-            footstepSoundCd = 0.45f;
-        }
-        else if (playerMovement.state == MovementState.walking)
-        {
-            footstepSoundCd = 0.6f;
-        }
-        if (playerMovement.IsMoving && playerMovement.IsGrounded && timeSinceLastFootstep >= Random.Range(footstepSoundCd-0.02f, footstepSoundCd+0.02f))  // Checks if player is moving, is grounded and if enough time has elapsed since last time the footstep sound was played (so it doesn't spam the sound).
-        {
-            int randomIndex = Random.Range(0, footstepSounds.Length);                                                   // Made a dynamic array that can check how many indeces we have within the array dependent on how many audio files we input through the Inspector. Stores the index value in randomIndex.
-            while (randomIndex == lastFootstepIndex)                                                                    // Created a while loop so we can check which sound out of the 4 elements in the array was played last. Doing this to we don't get any repeat sounds.
+            else if (playerMovement.state == MovementState.walking)
             {
-                randomIndex = Random.Range(0, footstepSounds.Length);                                                   // If the statement in the while loop stays true than we continue looking for another random index until it's not the same.
+                footstepSoundCd = 0.6f;
             }
-            int randomArmorIndex = Random.Range(0, armorWalkSound.Length);
-            while (randomArmorIndex == lastArmorIndex)
+            if (playerMovement.IsMoving && playerMovement.IsGrounded && timeSinceLastFootstep >= Random.Range(footstepSoundCd - 0.02f, footstepSoundCd + 0.02f))  // Checks if player is moving, is grounded and if enough time has elapsed since last time the footstep sound was played (so it doesn't spam the sound).
             {
-                randomArmorIndex = Random.Range(0, armorWalkSound.Length);
-            }
+                int randomIndex = Random.Range(0, footstepSounds.Length);                                                   // Made a dynamic array that can check how many indeces we have within the array dependent on how many audio files we input through the Inspector. Stores the index value in randomIndex.
+                while (randomIndex == lastFootstepIndex)                                                                    // Created a while loop so we can check which sound out of the 4 elements in the array was played last. Doing this to we don't get any repeat sounds.
+                {
+                    randomIndex = Random.Range(0, footstepSounds.Length);                                                   // If the statement in the while loop stays true than we continue looking for another random index until it's not the same.
+                }
+                int randomArmorIndex = Random.Range(0, armorWalkSound.Length);
+                while (randomArmorIndex == lastArmorIndex)
+                {
+                    randomArmorIndex = Random.Range(0, armorWalkSound.Length);
+                }
 
-            audioPlayer.PlaySFXAudio(footstepSounds[randomIndex]);                                                      // Plays the audio file of the random index that was selected.
-            audioPlayer.PlaySFXAudio(armorWalkSound[randomArmorIndex]);
-            
-            lastFootstepSound = Time.time;                                                                              // Resets the timer for the last played footstep variable. Basically makes out cooldown always valid since it now counts from when last the sound was played and not from 0 like in the beginning.
-            lastFootstepIndex = randomIndex;                                                                            // Setting the value of the randomIndex (that just played) to the last played index variable. Next time it checks for repeat sounds it will know which one was played last
-            lastArmorIndex = randomArmorIndex;
+                audioPlayer.PlaySFXAudio(footstepSounds[randomIndex]);                                                      // Plays the audio file of the random index that was selected.
+                audioPlayer.PlaySFXAudio(armorWalkSound[randomArmorIndex]);
+
+                lastFootstepSound = Time.time;                                                                              // Resets the timer for the last played footstep variable. Basically makes out cooldown always valid since it now counts from when last the sound was played and not from 0 like in the beginning.
+                lastFootstepIndex = randomIndex;                                                                            // Setting the value of the randomIndex (that just played) to the last played index variable. Next time it checks for repeat sounds it will know which one was played last
+                lastArmorIndex = randomArmorIndex;
+            }
+            if (!wasSlidingLastFrame && playerMovement.state == MovementState.sliding)
+            {
+                slidingAudioSource.Play();
+            }
+            if (wasSlidingLastFrame && playerMovement.state != MovementState.sliding)
+            {
+                slidingAudioSource.Stop();
+            }
+            wasSlidingLastFrame = playerMovement.state == MovementState.sliding;
         }
-        if(!wasSlidingLastFrame && playerMovement.state == MovementState.sliding)
-        {
-            slidingAudioSource.Play();
-        }
-        if(wasSlidingLastFrame && playerMovement.state != MovementState.sliding)
-        {
-            slidingAudioSource.Stop();
-        }
-        wasSlidingLastFrame = playerMovement.state == MovementState.sliding;
     }
     private void PlayJumpAudio()
     {
@@ -127,5 +132,9 @@ public class PlayerSFX : MonoBehaviour
     void OnDisable()
     {
         PlayerMovement.OnPlayerJumped -= PlayJumpAudio;    
+    }
+
+    public override void Instantiate()
+    {
     }
 }

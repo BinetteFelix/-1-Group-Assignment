@@ -1,10 +1,10 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utility;
 
-public class TowerTracker : MonoBehaviour
+public class TowerTracker : SingletonBehaviour<TowerTracker>
 {
-    public static TowerTracker Instance;
     public GameObject trackers;
 
     [Header("Player")]
@@ -27,12 +27,6 @@ public class TowerTracker : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI heightText;
 
-    private void Awake()
-    {
-        Instance = this;
-        
-    }
-
     private void Start()
     {
         
@@ -40,13 +34,16 @@ public class TowerTracker : MonoBehaviour
 
     private void Update()
     {
-        UpdatePlayerHeight();
-        UpdateLavaHeight();
+        if (player != null)
+        {
+            UpdatePlayerHeight();
+            UpdateLavaHeight();
 
-        SetPlayerSliderValue();
-        SetLavaSliderValue();
+            SetPlayerSliderValue();
+            SetLavaSliderValue();
 
-        SetCurrentHeight();
+            SetCurrentHeight();
+        }
     }
 
     private void UpdatePlayerHeight()
@@ -89,5 +86,9 @@ public class TowerTracker : MonoBehaviour
     public void SetLavaTransform(Transform transform)
     {
         lava = transform;
+    }
+
+    public override void Instantiate()
+    {
     }
 }

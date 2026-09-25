@@ -1,9 +1,10 @@
 using UnityEngine;
+using Utility;
 
-public class CollectiblesAudio : MonoBehaviour
+public class CollectiblesAudio : SingletonBehaviour<CollectiblesAudio>
 {
 
-    [SerializeField] private AudioSource worldInteractiveAudioSource;
+    public AudioSource worldInteractiveAudioSource;
     public AudioClip[] heartPickupSound;
     public AudioClip[] valueablePickupSound;
     private int lastHeartIndex = -1;
@@ -53,5 +54,9 @@ public class CollectiblesAudio : MonoBehaviour
     void OnDisable()
     {
         Collectible.OnCollectiblePickedUp -= CollectiblePickupHandler;
+    }
+
+    public override void Instantiate()
+    {
     }
 }

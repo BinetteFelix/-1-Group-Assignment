@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Utility;
 using UnityEngine.UI;
-using System.Diagnostics.CodeAnalysis;
 
 
 public class UIManager : SingletonBehaviour<UIManager>

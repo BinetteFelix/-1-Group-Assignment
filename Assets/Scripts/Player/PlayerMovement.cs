@@ -60,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Audio")]
     private PlayerAudio audioPlayer;
+    [SerializeField] AudioSource slidingAudioSource;
+    [SerializeField] AudioSource SFXAudioSource;
 
     public MovementState state;
     public enum MovementState
@@ -82,15 +84,23 @@ public class PlayerMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        #region Get Components
         audioPlayer = GetComponent<PlayerAudio>();
         RB = GetComponent<Rigidbody>();
+        #endregion
+
         RB.freezeRotation = true;
         readyToJump = true;
+
+        #region Enable Input Actions
         moveAction.Enable();
         jumpAction.Enable();
         sprintAction.Enable();
         crouchAction.Enable();
+        #endregion
+
         Main = Camera.main;
+        SetAudioManagerReferences();
 
         startYScale = transform.localScale.y;
     }
@@ -126,7 +136,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Debug.Log(IsGrounded);
         MovePlayer();
         Gravity();
     }
@@ -310,6 +319,16 @@ public class PlayerMovement : MonoBehaviour
     void RotatePlayer()
     {
         transform.rotation = Quaternion.Euler(new Vector3(0, Main.transform.eulerAngles.y, 0));
+    }
+    private void SetAudioManagerReferences()
+    {
+        Debug.Log("Tried Set References");
+
+        PlayerSFX.Instance.playerMovement = this;
+        PlayerSFX.Instance.audioPlayer = audioPlayer;
+        PlayerSFX.Instance.slidingAudioSource = slidingAudioSource;
+
+        CollectiblesAudio.Instance.worldInteractiveAudioSource = SFXAudioSource;
     }
     #endregion
 }
