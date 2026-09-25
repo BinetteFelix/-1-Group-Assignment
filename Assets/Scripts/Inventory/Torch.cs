@@ -5,6 +5,7 @@ public class Torch : MonoBehaviour
 {
     Light lightSource;
     [SerializeField] bool snuffTorch = false;
+    [SerializeField] Audio
     LayerMask layerMask;
 
     void Start()
