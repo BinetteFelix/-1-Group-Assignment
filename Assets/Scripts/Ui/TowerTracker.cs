@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,25 +19,34 @@ public class TowerTracker : MonoBehaviour
     public float l_endHeight;
 
 
-    [SerializeField] private float p_normalizedHeight;
-    [SerializeField] private float l_normalizedHeight;
+    public float p_normalizedHeight;
+    public float l_normalizedHeight;
 
-    
+    [SerializeField] Slider LavaSlider;
+    [SerializeField] Slider PlayerSlider;
+
+    [SerializeField] TextMeshProUGUI heightText;
 
     private void Awake()
     {
         Instance = this;
+        
     }
 
     private void Start()
     {
-        trackers.SetActive(false);
+        
     }
 
     private void Update()
     {
         UpdatePlayerHeight();
         UpdateLavaHeight();
+
+        SetPlayerSliderValue();
+        SetLavaSliderValue();
+
+        SetCurrentHeight();
     }
 
     private void UpdatePlayerHeight()
@@ -50,13 +60,34 @@ public class TowerTracker : MonoBehaviour
         float l_currentY = lava.position.y;
         l_normalizedHeight = Mathf.InverseLerp(l_startHeight, l_endHeight, l_currentY);
     }
-
+    private void SetCurrentHeight()
+    {
+        heightText.text = Mathf.RoundToInt(GetCurrentMeters()) + " M";
+    }
     public void showTracker()
     {
         trackers.SetActive(true);
     }
+    private void SetLavaSliderValue()
+    {
+        LavaSlider.value = GetLavaNormalizedHeight();
+    }
+    private void SetPlayerSliderValue()
+    {
+        PlayerSlider.value = GetPlayerNormalizedHeight();
+    }
 
     public float GetPlayerNormalizedHeight() => p_normalizedHeight;
+
     public float GetLavaNormalizedHeight() => l_normalizedHeight;
-    public float GetCurrentMeters() => player.position.y - p_startHeight;
+    public float GetCurrentMeters() => player.position.y - p_endHeight;
+
+    public void SetPlayerTransform(Transform transform)
+    {
+        player = transform;
+    }
+    public void SetLavaTransform(Transform transform)
+    {
+        lava = transform;
+    }
 }

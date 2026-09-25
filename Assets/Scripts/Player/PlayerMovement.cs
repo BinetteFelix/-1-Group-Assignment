@@ -74,6 +74,11 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsSliding { get; set; }
     public bool wallrunning { get; set; }
+    private void Awake()
+    {
+        TowerTracker.Instance.SetPlayerTransform(transform);
+
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
