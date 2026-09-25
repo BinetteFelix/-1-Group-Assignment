@@ -4,8 +4,9 @@ using UnityEngine;
 public class Torch : MonoBehaviour
 {
     Light lightSource;
-    [SerializeField] bool snuffTorch = false;
-    [SerializeField] Audio
+    [SerializeField] private AudioSource torchOffAudioSource;
+    public AudioClip torchSoundOff;
+    bool hasSnuffed = false;
     LayerMask layerMask;
 
     void Start()
@@ -17,8 +18,9 @@ public class Torch : MonoBehaviour
     void FixedUpdate()
     {
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit,0.1f, layerMask))
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit,0.5f, layerMask))
         {
+            Debug.Log("Raycast");
             SnuffTorch();
         }
     }
@@ -26,6 +28,13 @@ public class Torch : MonoBehaviour
     void SnuffTorch()
     {
         lightSource.enabled = false;
+
+        if (!hasSnuffed)
+        {
+           torchOffAudioSource.PlayOneShot(torchSoundOff);
+           hasSnuffed = true;
+        }
+        
     }
 
     void SnuffAllTorches()

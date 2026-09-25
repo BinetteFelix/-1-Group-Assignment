@@ -1216,6 +1216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47de9de6fa917f64d9094f80840914b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerTracker
+  _singletonName: TowerProgress
+  _destroyOnLevelChange: 0
   trackers: {fileID: 151736208}
   player: {fileID: 1427512980}
   p_startHeight: 0
@@ -5452,7 +5454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0656ec5617ed82448b3c7dacd785d2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Torch
-  snuffTorch: 0
+  torchSoundOff: {fileID: 8300000, guid: 2df18e363028e054ebe8b9a6a68d1117, type: 3}
 --- !u!1001 &590931079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13939,7 +13941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0656ec5617ed82448b3c7dacd785d2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Torch
-  snuffTorch: 0
+  torchSoundOff: {fileID: 8300000, guid: 2df18e363028e054ebe8b9a6a68d1117, type: 3}
 --- !u!1 &1295104648
 GameObject:
   m_ObjectHideFlags: 0
@@ -18279,7 +18281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0656ec5617ed82448b3c7dacd785d2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Torch
-  snuffTorch: 0
+  torchSoundOff: {fileID: 0}
 --- !u!1001 &1685305879
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23739,7 +23741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3510490493789489580, guid: 59886cf635030e648900ce1bfa00520c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 23.946579
+      value: 4.196579
       objectReference: {fileID: 0}
     - target: {fileID: 3510490493789489580, guid: 59886cf635030e648900ce1bfa00520c, type: 3}
       propertyPath: m_LocalPosition.z

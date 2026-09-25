@@ -52,7 +52,7 @@ public class Inventory : MonoBehaviour
     {
         if(collectibles.Count > 0)
         {
-            for (int i = 0; i >= collectibles.Count; i++)
+            for (int i = collectibles.Count -1 ; i >= 0; i--)
             {
                 Collectible item = collectibles[i];
                 item.transform.position = Player.Instance.transform.position + offset;
