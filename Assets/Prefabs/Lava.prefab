@@ -122,9 +122,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LavaMechanic
   lava: {fileID: 6140647480257600041}
-  lavaEndPos: {x: 0, y: 100, z: 0}
+  lavaEndPos: {x: 0, y: 74, z: 0}
   lavaStartPos: {x: 0, y: 0, z: 0}
-  lavaTravelDuration: 30
+  lavaTravelDuration: 200
 --- !u!65 &3992514988921027216
 BoxCollider:
   m_ObjectHideFlags: 0

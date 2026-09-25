@@ -1,24 +1,25 @@
+using System;
 using UnityEngine;
 
 public class Torch : MonoBehaviour
 {
     Light lightSource;
     [SerializeField] bool snuffTorch = false;
-    [SerializeField] Transform lavaPosition;
-
-    Vector3 lightPos;
-    Vector3 lavaPos;
+    LayerMask layerMask;
 
     void Start()
     {
-        lavaPos = lavaPosition.position;
+        layerMask = LayerMask.GetMask("Lava");
         lightSource = GetComponentInChildren<Light>();
-        lightPos = GetComponentInChildren<Vector3>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (snuffTorch) SnuffTorch();
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit,0.1f, layerMask))
+        {
+            SnuffTorch();
+        }
     }
 
     void SnuffTorch()
