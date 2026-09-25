@@ -77,7 +77,7 @@ public class HeartsUI : MonoBehaviour
 
         if (hearts == null || currentHP == 0)
         {
-            GameOver.Instance.Fail();
+            UIManager.Instance.Fail();
         }
     }
 

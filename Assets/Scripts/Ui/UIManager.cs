@@ -181,6 +181,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         if (IsGameOver) return;
         IsGameOver = true; 
         youDiedPanel.SetActive(true);
+        Pause();
     }
     public void Success()
     {
