@@ -12,6 +12,12 @@ public class WeakPlatform : MonoBehaviour
     public bool shakeBeforeBreak = true;
     public float shakeIntensity = 0.03f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip shakeSound;
+    [SerializeField] private AudioClip breakSound;
+    [SerializeField] private AudioClip respawnSound;
+
     private Collider col;
     private Renderer[] renderers;
     private Vector3 startLocalPos;
@@ -38,6 +44,7 @@ public class WeakPlatform : MonoBehaviour
     {
         state = State.Breaking;
 
+        PlaySound(shakeSound);
         if (shakeBeforeBreak)
         {
             float t = 0f;
@@ -56,6 +63,7 @@ public class WeakPlatform : MonoBehaviour
         }
 
         state = State.Broken;
+        PlaySound(breakSound);
         SetVisible(false);
         col.enabled = false;
 
@@ -66,10 +74,17 @@ public class WeakPlatform : MonoBehaviour
 
     private void Respawn()
     {
+        PlaySound(respawnSound);
         transform.localPosition = startLocalPos;
         SetVisible(true);
         col.enabled = true;
         state = State.Idle;
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource == null || clip == null) return;
+        audioSource.PlayOneShot(clip);
     }
 
     private void SetVisible(bool visible)

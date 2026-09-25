@@ -7,6 +7,10 @@ public class SpinningFireTrap : MonoBehaviour
     public float rotationSpeed = 30f; // degrees per second
     public Vector3 rotationAxis = Vector3.up;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip fireLoopSound;
+
     private Rigidbody rb;
 
     void Awake()
@@ -14,6 +18,16 @@ public class SpinningFireTrap : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
         rb.interpolation = RigidbodyInterpolation.Interpolate; // smooths visual rotation between physics steps
+    }
+
+    void Start()
+    {
+        if (audioSource != null && fireLoopSound != null)
+        {
+            audioSource.clip = fireLoopSound;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
     }
 
     void FixedUpdate()

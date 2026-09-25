@@ -20,6 +20,12 @@ public class CrusherTrap : MonoBehaviour
     public float riseDuration = 0.6f;       // returns to raised position
     public float rearmCooldown = 0.3f;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip nudgeSound;
+    public AudioClip slamSound;
+    public AudioClip riseSound;
+
     private enum State { Idle, Telegraphing, Slamming, Holding, Rising, Cooldown }
     private State state = State.Idle;
 
@@ -47,10 +53,12 @@ public class CrusherTrap : MonoBehaviour
     private IEnumerator SlamSequence()
     {
         state = State.Telegraphing;
+        PlaySound(nudgeSound);
         yield return MoveCrusher(0f, nudgeDistance, nudgeDuration);
         yield return new WaitForSeconds(nudgeHoldDuration);
 
         state = State.Slamming;
+        PlaySound(slamSound);
         SetHitboxActive(true);
         yield return MoveCrusher(nudgeDistance, slamDistance, slamDuration);
 
@@ -58,6 +66,7 @@ public class CrusherTrap : MonoBehaviour
         yield return new WaitForSeconds(slamHoldDuration);
 
         state = State.Rising;
+        PlaySound(riseSound);
         SetHitboxActive(false);
         yield return MoveCrusher(slamDistance, 0f, riseDuration);
 
@@ -99,5 +108,11 @@ public class CrusherTrap : MonoBehaviour
         Collider hitboxCollider = crusherHitbox.GetComponent<Collider>();
         if (hitboxCollider != null)
             hitboxCollider.enabled = active;
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource == null || clip == null) return;
+        audioSource.PlayOneShot(clip);
     }
 }

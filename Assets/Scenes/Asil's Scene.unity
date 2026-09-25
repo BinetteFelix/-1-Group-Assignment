@@ -317,6 +317,10 @@ MonoBehaviour:
   slamHoldDuration: 0.4
   riseDuration: 1.5
   rearmCooldown: 0.7
+  audioSource: {fileID: 0}
+  nudgeSound: {fileID: 0}
+  slamSound: {fileID: 0}
+  riseSound: {fileID: 0}
 --- !u!1 &265460889
 GameObject:
   m_ObjectHideFlags: 0
@@ -23878,6 +23882,8 @@ MonoBehaviour:
   fireInterval: 2
   projectileSpeed: 15
   startDelay: 0
+  audioSource: {fileID: 0}
+  fireSound: {fileID: 0}
 --- !u!1001 &1854402951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23955,6 +23961,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 029b3feb059e5fd4087be5a3773e3172, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1854402958}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 029b3feb059e5fd4087be5a3773e3172, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1854402959}
   m_SourcePrefab: {fileID: 100100000, guid: 029b3feb059e5fd4087be5a3773e3172, type: 3}
 --- !u!1 &1854402952 stripped
 GameObject:
@@ -23980,6 +23989,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpinningFireTrap
   rotationSpeed: 30
   rotationAxis: {x: 0, y: 1, z: 0}
+  audioSource: {fileID: 1854402959}
+  fireLoopSound: {fileID: 0}
 --- !u!54 &1854402955
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -24030,6 +24041,103 @@ CapsuleCollider:
   m_Height: 1.5989951
   m_Direction: 1
   m_Center: {x: 0, y: 0.79879135, z: 0}
+--- !u!82 &1854402959
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854402952}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1857545027
 GameObject:
   m_ObjectHideFlags: 0
@@ -29774,6 +29882,10 @@ MonoBehaviour:
   respawnDelay: 3
   shakeBeforeBreak: 1
   shakeIntensity: 0.03
+  audioSource: {fileID: 0}
+  shakeSound: {fileID: 0}
+  breakSound: {fileID: 0}
+  respawnSound: {fileID: 0}
 --- !u!1001 &23981448003540943
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,6 +11,10 @@ public class CannonTrap : MonoBehaviour
     [SerializeField] private float projectileSpeed = 15f;
     [SerializeField] private float startDelay = 0f; // useful for staggering multiple cannons
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip fireSound;
+
     private float timer;
 
     void Start()
@@ -38,6 +42,14 @@ public class CannonTrap : MonoBehaviour
         Rigidbody projRb = proj.GetComponent<Rigidbody>();
         if (projRb != null)
             projRb.linearVelocity = shootPoint.forward * projectileSpeed;
+
+        PlaySound(fireSound);
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource == null || clip == null) return;
+        audioSource.PlayOneShot(clip);
     }
 
     private void OnDrawGizmosSelected()

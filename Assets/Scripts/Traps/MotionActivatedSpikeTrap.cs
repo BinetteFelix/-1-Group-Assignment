@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.Audio;
 
 [RequireComponent(typeof(Collider))]
 public class MotionActivatedSpikeTrap : MonoBehaviour
@@ -19,6 +20,12 @@ public class MotionActivatedSpikeTrap : MonoBehaviour
     public float extendedHoldDuration = 0.5f;  // stays out, damaging
     public float retractDuration = 0.3f;       // goes back down
     public float rearmCooldown = 0.5f;         // wait after hidden before it can trigger again
+
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip nudgeSound;
+    public AudioClip lungeSound;
+    public AudioClip retractSound;
 
     private enum State { Idle, Poking, Lunging, Retracting, Cooldown }
     private State state = State.Idle;
@@ -47,15 +54,18 @@ public class MotionActivatedSpikeTrap : MonoBehaviour
     private IEnumerator ActivateSequence()
     {
         state = State.Poking;
+        PlaySound(nudgeSound);
         yield return MoveSpike(0f, pokeHeight, pokeDuration);
         yield return new WaitForSeconds(pokeHoldDuration);
 
         state = State.Lunging;
+        PlaySound(lungeSound);
         yield return MoveSpike(pokeHeight, extendedHeight, lungeDuration);
         SetHitboxActive(true);
         yield return new WaitForSeconds(extendedHoldDuration);
 
         state = State.Retracting;
+        PlaySound(retractSound);
         SetHitboxActive(false);
         yield return MoveSpike(extendedHeight, 0f, retractDuration);
 
@@ -97,5 +107,11 @@ public class MotionActivatedSpikeTrap : MonoBehaviour
         Collider hitboxCollider = spikeHitbox.GetComponent<Collider>();
         if (hitboxCollider != null)
             hitboxCollider.enabled = active;
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource == null || clip == null) return;
+        audioSource.PlayOneShot(clip);
     }
 }
