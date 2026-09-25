@@ -5,7 +5,7 @@ public class KnockbackTrap : MonoBehaviour
     public enum KnockbackDirectionMode
     {
         Radial, // from trap center to target 
-        Fixed   // always along the trap's own forward axis (blue arrow)
+        Fixed   // uses fixedDirection below (in world space)
     }
 
     [Header("Knockback Settings")]
@@ -14,6 +14,9 @@ public class KnockbackTrap : MonoBehaviour
     public float upwardBoost = 2f;
     public ForceMode forceMode = ForceMode.Impulse;
     public float knockbackLockoutDuration = 0.5f;
+
+    [Header("Fixed Direction Settings")]
+    public Vector3 fixedDirection = Vector3.forward;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -24,7 +27,7 @@ public class KnockbackTrap : MonoBehaviour
 
         if (directionMode == KnockbackDirectionMode.Fixed)
         {
-            direction = transform.forward;
+            direction = fixedDirection.sqrMagnitude > 0.0001f ? fixedDirection.normalized : transform.forward;
         }
         else
         {
@@ -42,8 +45,9 @@ public class KnockbackTrap : MonoBehaviour
     {
         if (directionMode == KnockbackDirectionMode.Fixed)
         {
+            Vector3 dir = fixedDirection.sqrMagnitude > 0.0001f ? fixedDirection.normalized : transform.forward;
             Gizmos.color = Color.red;
-            Gizmos.DrawRay(transform.position, transform.forward * 2f);
+            Gizmos.DrawRay(transform.position, dir * 4f);
         }
     }
 }
