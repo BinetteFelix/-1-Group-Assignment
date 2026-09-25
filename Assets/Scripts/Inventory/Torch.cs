@@ -16,6 +16,11 @@ public class Torch : MonoBehaviour
         lightPos = GetComponentInChildren<Vector3>();
     }
 
+    void Update()
+    {
+        if (snuffTorch) SnuffTorch();
+    }
+
     void SnuffTorch()
     {
         lightSource.enabled = false;

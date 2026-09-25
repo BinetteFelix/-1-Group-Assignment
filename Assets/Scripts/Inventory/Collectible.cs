@@ -1,6 +1,5 @@
 using System;
 using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Collectible : MonoBehaviour
