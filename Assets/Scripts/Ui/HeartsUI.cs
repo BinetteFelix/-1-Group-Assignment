@@ -55,7 +55,12 @@ public class HeartsUI : MonoBehaviour
 
         if (currentHP <= 0) Die();
     }
+    public void ResetHeart()
+    {
+        isDead = false;
+        AddHeart(3);
 
+    }
     public void AddHeart(int amount)
     {
         if (isDead) return;

@@ -44,6 +44,10 @@ public class UIManager : SingletonBehaviour<UIManager>
     [SerializeField] private TextMeshProUGUI scoreText;
     #endregion
 
+    #region REFERENCES
+    [SerializeField] HeartsUI heartsUI;
+    [SerializeField] CoinUI coinUI;
+    #endregion
     public bool IsPaused { get; private set; }
     public bool IsGameOver { get; private set; }
     private void Start()
@@ -162,6 +166,9 @@ public class UIManager : SingletonBehaviour<UIManager>
         pausePanel.SetActive(false);
         youDiedPanel.SetActive(false);
         youWinPanel.SetActive(false);
+
+        heartsUI.ResetHeart();
+        coinUI.ResetCoins();
     }
 
     #endregion
