@@ -31,7 +31,6 @@ public class LavaMechanic : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("on enable");
         Collectible.questItemTrap += LavaTrapEngaged;
     }
 

@@ -49,6 +49,18 @@ PrefabInstance:
       value: Collectible
       objectReference: {fileID: 0}
     - target: {fileID: 9036346594766706666, guid: e61c9a4b7ad4e684f9866d27135607f5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3261
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036346594766706666, guid: e61c9a4b7ad4e684f9866d27135607f5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3261
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036346594766706666, guid: e61c9a4b7ad4e684f9866d27135607f5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3261
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036346594766706666, guid: e61c9a4b7ad4e684f9866d27135607f5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.32324
       objectReference: {fileID: 0}
@@ -119,6 +131,7 @@ MonoBehaviour:
   value: 7
   prefab: {fileID: 6898754295522204885}
   col: {fileID: -2771762823835951978}
+  impulseForce: 0
 --- !u!65 &-2771762823835951978
 BoxCollider:
   m_ObjectHideFlags: 0

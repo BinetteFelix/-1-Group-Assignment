@@ -18,15 +18,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 918843213056018034, guid: 57377efc0a877474ab0478d4ce8180c2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3484
+      value: 0.6615581
       objectReference: {fileID: 0}
     - target: {fileID: 918843213056018034, guid: 57377efc0a877474ab0478d4ce8180c2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3484
+      value: 0.6615581
       objectReference: {fileID: 0}
     - target: {fileID: 918843213056018034, guid: 57377efc0a877474ab0478d4ce8180c2, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3484
+      value: 0.6615581
       objectReference: {fileID: 0}
     - target: {fileID: 918843213056018034, guid: 57377efc0a877474ab0478d4ce8180c2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -131,6 +131,7 @@ MonoBehaviour:
   value: 3
   prefab: {fileID: 238332652168607195}
   col: {fileID: -6299102682639230265}
+  impulseForce: 0
 --- !u!65 &-6299102682639230265
 BoxCollider:
   m_ObjectHideFlags: 0
