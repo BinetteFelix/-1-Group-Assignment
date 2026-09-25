@@ -7,7 +7,9 @@ public class GameOver : MonoBehaviour
     public static GameOver Instance;
     public GameObject youDied;
     public GameObject youWin;
-
+    [SerializeField] private Button retryButton;
+    [SerializeField] private Button f_exitBututton;
+    [SerializeField] private Button w_exitBututton;
     [SerializeField] private TextMeshProUGUI scoreText;
 
     private void Awake()
@@ -17,7 +19,8 @@ public class GameOver : MonoBehaviour
 
     private void Start()
     {
-
+        RetryButton();
+        ExitButton();
 
     }
 
@@ -47,4 +50,22 @@ public class GameOver : MonoBehaviour
         //TODO: Need to consider time as well?
     }
 
+    public void RetryButton()
+    {
+        retryButton.onClick.AddListener(() =>
+        {
+            //UnityEngine.SceneManagement.SceneManager.LoadScene("");
+        });
+    }
+
+    public void ExitButton()
+    {
+        f_exitBututton.onClick.AddListener(ExitToMenu);
+        w_exitBututton.onClick.AddListener(ExitToMenu);
+    }
+
+    private void ExitToMenu()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
 }

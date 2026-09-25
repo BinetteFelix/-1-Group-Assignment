@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Utility;
 using UnityEngine.UI;
-using System.Diagnostics.CodeAnalysis;
 
 
 public class UIManager : SingletonBehaviour<UIManager>
@@ -14,6 +13,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject InGameUIPanel;
+    [SerializeField] private GameObject GameOverPanel;
     [SerializeField] private GameObject youDiedPanel;
     [SerializeField] private GameObject youWinPanel;
 
@@ -28,7 +28,9 @@ public class UIManager : SingletonBehaviour<UIManager>
     #region FAIL VARIABLES
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private float startTime;
-    private float timeTillFail;
+    private float timeTillFail; //TODO: Need to confirm
+                                //TODO: Need warning changing color/size/animation?
+
     private bool isTimerRunning;
     public event Action OnTimeUp;
     #endregion
@@ -44,7 +46,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     [SerializeField] private TextMeshProUGUI scoreText;
     #endregion
 
-    public bool IsPaused { get; private set; }
+    public bool IsPaused {  get; private set; }
     public bool IsGameOver { get; private set; }
     private void Start()
     {
@@ -67,21 +69,19 @@ public class UIManager : SingletonBehaviour<UIManager>
         }
 
         #region FAIL TIMER
+        timeTillFail -= Time.deltaTime;
+        int minutes = Mathf.FloorToInt(timeTillFail / 60f);
+        int seconds = Mathf.FloorToInt(timeTillFail % 60f);
+        int milliseconds = Mathf.FloorToInt((timeTillFail * 100f) % 60f);
+        timerText.text = $"{minutes:00}:{seconds:00}:{milliseconds:00}";
 
-        if(isTimerRunning && !IsGameOver)
+        if (timeTillFail <= 0)
         {
-            timeTillFail -= Time.deltaTime;
-            if (timeTillFail <= 0)
-            {
-                timeTillFail = 0;
-                TriggerTimeUp();
-            }
-            UpdateTimerText();
+            TriggerTimeUp();
         }
-
-
         #endregion
 
+        UpdateTrackers();
     }
 
     #region GAME STATE
@@ -118,6 +118,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 
         mainMenuPanel.SetActive(true);
         InGameUIPanel.SetActive(false);
+        GameOverPanel.SetActive(false);
 
         pauseAction.Disable();
         Cursor.lockState = CursorLockMode.None;
@@ -128,8 +129,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         ResetTimer();
         ResetGameState();
 
-        youDiedPanel.SetActive(false);
-        youWinPanel.SetActive(false);
+        GameOverPanel.SetActive(false);
         InGameUIPanel.SetActive(true);
         trackersPanel.SetActive(false);
 
@@ -144,8 +144,7 @@ public class UIManager : SingletonBehaviour<UIManager>
         ResetGameState();
 
         mainMenuPanel.SetActive(false);
-        youDiedPanel.SetActive(false);
-        youWinPanel.SetActive(false);
+        GameOverPanel.SetActive(false);
         InGameUIPanel.SetActive(true);
 
         pauseAction.Enable();
@@ -164,30 +163,32 @@ public class UIManager : SingletonBehaviour<UIManager>
         youWinPanel.SetActive(false);
     }
 
+    private void GameOverSceen(bool won)
+    {
+        IsGameOver = true;
+        isTimerRunning = false;
+
+        GameOverPanel.SetActive(true);
+        youDiedPanel.SetActive(!won);
+        youWinPanel.SetActive(won);
+    }
     #endregion
 
     #region FAIL METHODS
-    
     private void TriggerTimeUp()
     {
-        isTimerRunning = false;
         OnTimeUp?.Invoke();
         Fail();
-        Cursor.lockState = CursorLockMode.None;
-
     }
     public void Fail()
     {
         if (IsGameOver) return;
-        IsGameOver = true; 
-        youDiedPanel.SetActive(true);
-        Pause();
+        GameOverSceen(false);
     }
     public void Success()
     {
         if (IsGameOver) return;
-        IsGameOver = true;
-        youWinPanel.SetActive(true);
+        GameOverSceen(true);
         UpdateScoreDisplay();
     }
     public void ResetTimer()
@@ -215,12 +216,6 @@ public class UIManager : SingletonBehaviour<UIManager>
     {
         optionsPanel.SetActive(false);
     }
-
-    public void WindowsButton()
-    {
-        Screen.fullScreen = !Screen.fullScreen;
-    }
-
     public void CreditsButton()
     {
         creditsPanel.SetActive(true);
@@ -231,7 +226,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     }
     public void ExitButton()
     {
-        Application.Quit();
+        //Need to look up
     }
     #endregion
 
