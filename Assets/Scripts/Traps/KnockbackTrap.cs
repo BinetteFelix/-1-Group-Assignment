@@ -18,6 +18,10 @@ public class KnockbackTrap : MonoBehaviour
     [Header("Fixed Direction Settings")]
     public Vector3 fixedDirection = Vector3.forward;
 
+    [Header("Audio Settings")]
+    public AudioSource audioSource;
+    public AudioClip knockbackSound;
+
     private void OnTriggerEnter(Collider other)
     {
         KnockbackReceiver player = other.GetComponent<KnockbackReceiver>();
@@ -39,6 +43,14 @@ public class KnockbackTrap : MonoBehaviour
         direction = (direction + Vector3.up * (upwardBoost / knockbackForce)).normalized;
 
         player.ApplyKnockback(direction * knockbackForce, forceMode, knockbackLockoutDuration);
+
+        PlaySound(knockbackSound);
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource == null || clip == null) return;
+        audioSource.PlayOneShot(clip);
     }
 
     private void OnDrawGizmosSelected()
